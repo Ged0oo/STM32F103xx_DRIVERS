@@ -24,7 +24,7 @@ void RCC_voidInitSystemClk(RCC_ClksState_t Copy_u8ClkStates , RCC_SystemClk_t Co
 	RCC_voidSetClksState(Copy_u8ClkStates) ; 
 	RCC_voidSetPllInput(Copy_u8PllIn) ; 
 	RCC_voidSetPllMulFactor(Copy_u8Pllmulfactor) ; 
-	RCC_voidSetSystemClk(Copy_u8SystemClk) ;
+	RCC_voidSetSystemClk(Copy_u8SystemClk) ; 
 }
  
  
