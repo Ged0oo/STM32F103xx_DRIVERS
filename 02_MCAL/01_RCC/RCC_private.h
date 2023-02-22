@@ -23,7 +23,7 @@
 #define  	RCC_BDCR_OFFSET	     		(0x020) 
 #define  	RCC_CSR_OFFSET	     		(0x024) 
 #define  	RCC_AHBSTR_OFFSET	     	(0x028) 
-#define  	RCC_CFGR2_OFFSET	     	(0x02C) 
+#define  	RCC_CFGR2_OFFSET	     	(0x02C)  
 
 
 #define  	RCC_CR              		*((volatile u32 *)( RCC_BASE_ADDRESS + RCC_CR_OFFSET )) 
