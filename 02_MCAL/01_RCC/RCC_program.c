@@ -16,7 +16,7 @@
 
 static void RCC_voidSetClksState(Copy_u8ClkStates) ; 
 static void RCC_voidSetPllInput(Copy_u8PllIn) ; 
-static void RCC_voidSetPllMulFactor(Copy_u8Pllmulfactor) ; 
+static void RCC_voidSetPllMulFactor(Copy_u8Pllmulfactor) ;  
 
 
 void RCC_voidInitSystemClk(RCC_ClksState_t Copy_u8ClkStates , RCC_SystemClk_t Copy_u8SystemClk ,RCC_PllInput_t Copy_u8PllIn ,RCC_PllMulFactor_t Copy_u8Pllmulfactor)
