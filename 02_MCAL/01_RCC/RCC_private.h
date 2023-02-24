@@ -45,7 +45,7 @@
 #define 	RCC_CR_PLL2ON_PIN             26
 #define 	RCC_CR_PLLRDY_PIN             25 
 #define 	RCC_CR_PLLON_PIN              24
-#define 	RCC_CR_CSSON_PIN              19
+#define 	RCC_CR_CSSON_PIN              19 
 #define 	RCC_CR_HSEBPY_PIN             18
 #define 	RCC_CR_HSERDY_PIN             17
 #define 	RCC_CR_HSEON_PIN              16
