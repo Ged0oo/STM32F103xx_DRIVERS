@@ -52,7 +52,7 @@
 #define 	RCC_CR_HSICAL_START_PIN       8 
 #define 	RCC_CR_HSITRIM_START_PIN      3
 #define 	RCC_CR_HSIRDY_PIN             1
-#define 	RCC_CR_HSION_PIN			  0
+#define 	RCC_CR_HSION_PIN			0
 				   
 				   				  
 #define 	RCC_CFGR_MCO_START_PIN        24
