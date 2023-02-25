@@ -21,7 +21,7 @@
 #define  	RCC_APB2ENR_OFFSET	     	(0x018) 
 #define  	RCC_APB1ENR_OFFSET	     	(0x01C)  
 #define  	RCC_BDCR_OFFSET	     		(0x020)  
-#define  	RCC_CSR_OFFSET	     		(0x024) 
+#define  	RCC_CSR_OFFSET	     		(0x024)  
 #define  	RCC_AHBSTR_OFFSET	     	(0x028)  
 #define  	RCC_CFGR2_OFFSET	     	(0x02C)  
  
