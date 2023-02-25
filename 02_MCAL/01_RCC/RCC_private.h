@@ -28,7 +28,7 @@
 
 #define  	RCC_CR              		*((volatile u32 *)( RCC_BASE_ADDRESS + RCC_CR_OFFSET )) 
 #define  	RCC_CFGRR              		*((volatile u32 *)( RCC_BASE_ADDRESS + RCC_CR_OFFSET ))
-#define  	RCC_CIR              		*((volatile u32 *)( RCC_BASE_ADDRESS + RCC_CR_OFFSET )) 
+#define  	RCC_CIR              		*((volatile u32 *)( RCC_BASE_ADDRESS + RCC_CR_OFFSET ))  
 #define  	RCC_APB2RSTR              	*((volatile u32 *)( RCC_BASE_ADDRESS + RCC_CR_OFFSET ))				   
 #define  	RCC_APB1RSTR              	*((volatile u32 *)( RCC_BASE_ADDRESS + RCC_CR_OFFSET ))				   
 #define  	RCC_AHBENR              	*((volatile u32 *)( RCC_BASE_ADDRESS + RCC_CR_OFFSET ))  
