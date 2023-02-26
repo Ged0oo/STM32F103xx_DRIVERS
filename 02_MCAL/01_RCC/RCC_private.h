@@ -9,7 +9,7 @@
   
 #ifndef __TEMPLATE_PRIVATE_H__
 #define __TEMPLATE_PRIVATE_H__
-				   
+				    
 
 #define  	RCC_BASE_ADDRESS     		(0x40021000) 
 #define  	RCC_CR_OFFSET	     		(0x000) 
