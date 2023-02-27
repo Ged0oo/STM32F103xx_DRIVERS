@@ -1,83 +1,228 @@
 /* 
- * File:   RCC_PROGRAM.h
+ * File:   RCC_program.c
  * Author: Mohamed_Nagy
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
  * Created on February 16, 2023, 8:41 PM
  */
-  
-
-#include "STD_TYPES.h"
-#include "BIT_MATH.h"
-#include "RCC_interface.h"
-#include "RCC_private.h" 
-#include "RCC_config.h"
- 
-
-static void RCC_voidSetClksState(Copy_u8ClkStates) ; 
-static void RCC_voidSetPllInput(Copy_u8PllIn) ; 
-static void RCC_voidSetPllMulFactor(Copy_u8Pllmulfactor) ;  
 
 
-void RCC_voidInitSystemClk(RCC_ClksState_t Copy_u8ClkStates , RCC_SystemClk_t Copy_u8SystemClk ,RCC_PllInput_t Copy_u8PllIn ,RCC_PllMulFactor_t Copy_u8Pllmulfactor)
+#include "../include/RCC_interface.h"
+#include "../include/RCC_config.h"
+#include "../include/RCC_private.h"
+
+
+void RCC_voidClockInit(RCC_Config_t *RCC_Config)
 {
-	RCC_voidSetClksState(Copy_u8ClkStates) ; 
-	RCC_voidSetPllInput(Copy_u8PllIn) ; 
-	RCC_voidSetPllMulFactor(Copy_u8Pllmulfactor) ; 
-	RCC_voidSetSystemClk(Copy_u8SystemClk) ;  
-} 
-    
- 
-void  RCC_voidSetClksState(tRCC_ClksState Copy_u8ClkStates)  
-{	
-	MAN_BIT(RCC_CR   ,  RCC_CR_PLLON_PIN   ,   GET_BIT(Copy_u8ClkStates, PLLON_BIT_ID)       ) ;
-    if(	GET_BIT(Copy_u8ClkStates,PLLON_BIT_ID) == HIGH) 
-	{ 
-		while(GET_BIT(RCC_CR,RCC_CR_PLL_RDY_PIN) != HIGH) ;
-	}
-		
-	MAN_BIT( RCC_CR , RCC_CR_HSION_PIN , GET_BIT(Copy_u8ClkStates , HSION_BIT_ID) );
-	if(	GET_BIT(Copy_u8ClkStates,HSION_BIT_ID) == HIGH)
-	{
-		while(GET_BIT(RCC_CR,RCC_CR_HSIRDY_PIN) != HIGH) ;
-	}
-		
 	
-	MAN_BIT(RCC_CR , RCC_CR_HSEON_PIN , GET_BIT(Copy_u8ClkStates , HSEON_BIT_ID));
-	if(	GET_BIT(Copy_u8ClkStates,HSEON_BIT_ID) == HIGH)
+	if(NULL == RCC_Config)
 	{
-		while(GET_BIT(RCC_CR , RCC_CR_HSERDY_PIN) != HIGH) ;
+		return;
 	}
+	else
+	{
+		RCC_voidClockSource(RCC_Config->ClockSource);
+		if(RCC_Config->ClockSource == RCC_PLL)
+		{
+			RCC_voidPLL_Clock_Source(RCC_Config->PLL_Config.PLL_Source);
+			RCC_voidPLL_Mul(RCC_Config->PLL_Config.PLL_Mul_Factor);
+		}
+		else if(RCC_Config->ClockSource == RCC_HSI)
+		{
+			/* HSI Trim function*/
+		}
+		/* Adjust Prescaler */
+		RCC_voidBus_Prescaler(RCC_Config);
+	}
+}
+
+
+void RCC_voidPeripheralClockEnable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName)
+{
+	switch(Copy_u8BusName)
+	{
+	case RCC_AHB_BUS:
+		SET_BIT(RCC->AHBENR,Copy_u8PeripheralName);
+		break;
+
+	case RCC_APB1_BUS:
+		SET_BIT(RCC->APB1ENR,Copy_u8PeripheralName);
+		break;
+
+	case RCC_APB2_BUS:
+		SET_BIT(RCC->APB2ENR,Copy_u8PeripheralName);
+		break;
+
+	default:
+		/* return error */
+		break;
+	}
+
+}
+
+
+void RCC_voidPeripheralClockDisable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName)
+{
+	switch(Copy_u8BusName)
+	{
+		case RCC_AHB_BUS :
+			CLEAR_BIT(RCC->AHBENR,Copy_u8PeripheralName);
+			break;
+
+		case RCC_APB1_BUS :
+			CLEAR_BIT(RCC->APB1ENR,Copy_u8PeripheralName);
+			break;
+
+		case RCC_APB2_BUS :
+			CLEAR_BIT(RCC->APB2ENR,Copy_u8PeripheralName);
+			break;
+
+		default:
+			/* return error */
+			break;
+	}
+
+}
+
+
+static void RCC_voidClockSource(uint8 Copy_u8xClock)
+{
+	/*First clear configuration bits*/
+	CLEAR_BIT(RCC->CFGR,0);
+	CLEAR_BIT(RCC->CFGR,1);
+
+	/*Choose clock source*/
+	switch(Copy_u8xClock)
+	{
+	/* Internal clock*/
+	case RCC_HSI:
+		/*Set HSION BIT*/
+		SET_BIT(RCC->CR,0);
+		/*Wait until the clock is stable*/
+		while(BIT_IS_CLEAR(RCC->CR,1));
 		
-	
-	MAN_BIT(RCC_CR , RCC_CR_HSEBPY_PIN , GET_BIT(Copy_u8ClkStates , HSEBPY_BIT_ID)) ;
-}
+		/* Select HSI as clock source */
+		CLEAR_BIT(RCC->CFGR,0);
+		CLEAR_BIT(RCC->CFGR,1);
+		break;
 
+		/*External clock*/
+	case RCC_HSE :
+		/* Set HSEON BIT */
+		SET_BIT(RCC->CR,16);
+		/* Check if Bypass is on */
+		#if RCC_HSE_BYPASS == HSE_BYPASS_OFF_CRYSTAL
+				CLEAR_BIT(RCC->CR,18);
+		#elif RCC_HSE_BYPASS == HSE_BYPASS_ON_RC
+				SET_BIT(RCC->CR,18);
+		#endif
+		/*Wait until external clock is stable*/
+		while(BIT_IS_CLEAR(RCC->CR,17));
 
-static void  RCC_voidSetPllInput(tRCC_PllInput Copy_u8PllIn)  
-{
-	if(Copy_u8PllIn != RCC_PLL_NOT_USED )
-	{
-      MAN_BIT(RCC_CFGR , RCC_CFGR_PLLSRC_PIN   , GET_BIT(Copy_u8PllIn , PLLSRC_BIT_ID  )) ;
-      MAN_BIT(RCC_CFGR , RCC_CFGR_PLLXTPRE_PIN , GET_BIT(Copy_u8PllIn , PLLXTPRE_BIT_ID)) ;
+		/* Select HSE as clock source */
+		SET_BIT(RCC->CFGR,0);
+		CLEAR_BIT(RCC->CFGR,1);
+		break;
+
+		/*PLL clock*/
+	case RCC_PLL:
+		/* Set PLLON BIT */
+		SET_BIT(RCC->CR,24);
+		/*Wait until PLL clock is stable*/
+		while(BIT_IS_CLEAR(RCC->CR,25));
+
+		CLEAR_BIT(RCC->CFGR,0);
+		SET_BIT(RCC->CFGR,1);
+		break;
+
+		/* default HSI will be used */
+	default:
+		/*Set HSION BIT*/
+		SET_BIT(RCC->CR,0);
+		/*Wait until the clock is stable*/
+		while(BIT_IS_CLEAR(RCC->CR,1));
+		
+		/* Select HSI as clock source */
+		CLEAR_BIT(RCC->CFGR,0);
+		CLEAR_BIT(RCC->CFGR,1);
+		break;
 	}
 }
 
 
-static void  RCC_voidSetPllMulFactor(tRCC_PllMulFactor Copy_u8Pllmulfactor) 
+static void RCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source)
 {
-	if(Copy_u8Pllmulfactor != PLL_IN_X_1 )
+	/* First Clear the Bits */
+	CLEAR_BIT(RCC->CFGR,17);
+	CLEAR_BIT(RCC->CFGR,16);
+
+	switch(Copy_u8xPLL_Source)
 	{
-      u8 current_pll_state = GET_BIT(RCC_CR , RCC_CR_PLLON_PIN) ; 
-      CLR_BIT(RCC_CR      , RCC_CR_PLLON_PIN) ; 
-      MAN_NIBBLE(RCC_CFGR , RCC_CFGR_PLLMULL_START_PIN , Copy_u8Pllmulfactor) ;
-      MAN_BIT(RCC_CR      , RCC_CR_PLLON_PIN           , current_pll_state) ;
+		case PLL_SRC_HSE_NOT_DEVIDED:
+			/* Set HSEON BIT */
+			SET_BIT(RCC->CR,16);
+			/*Wait until external clock is stable*/
+			while(BIT_IS_CLEAR(RCC->CR,17));
+
+			/*Select HSE as PLL source*/
+			CLEAR_BIT(RCC->CFGR,17);
+			SET_BIT(RCC->CFGR,16);
+			
+			/*Wait until external clock is stable*/
+			while(BIT_IS_CLEAR(RCC->CR,17));
+			break;
+			
+		case PLL_SRC_HSE_DEVIDED_BY_2:
+			/* Set HSEON BIT */
+			SET_BIT(RCC->CR,16);
+			/*Wait until external clock is stable*/
+			while(BIT_IS_CLEAR(RCC->CR,17));
+
+			/*Select HSE as PLL source*/
+			SET_BIT(RCC->CFGR,17);
+			SET_BIT(RCC->CFGR,16);
+			/*Wait until external clock is stable*/
+			while(BIT_IS_CLEAR(RCC->CR,17));
+			break;
+			
+		case PLL_SRC_HSI_DEVIDED_BY_2:
+			/*Set HSION BIT*/
+			SET_BIT(RCC->CR,0);
+			/*Wait until the clock is stable*/
+			while(BIT_IS_CLEAR(RCC->CR,1));
+
+			CLEAR_BIT(RCC->CFGR,16);
+			break;
+			
+			/* default the PLL clock source is internal clock */
+		default:
+			/*Set HSION BIT*/
+			SET_BIT(RCC->CR,0);
+			/*Wait until the clock is stable*/
+			while(BIT_IS_CLEAR(RCC->CR,1));
+			break;
 	}
 }
 
 
-static void  RCC_voidSetSystemClk(tRCC_SystemClk Copy_u8SystemClk) 
+static void RCC_voidPLL_Mul(uint8 Copy_u8xMul_Factor)
 {
-    MAN_BIT(RCC_CFGR , RCC_CFGR_SW_PIN_0 , GET_BIT(Copy_u8SystemClk , SW_BIT_0_ID)) ;	
-    MAN_BIT(RCC_CFGR , RCC_CFGR_SW_PIN_1 , GET_BIT(Copy_u8SystemClk , SW_BIT_1_ID)) ;	
+	RCC->CFGR |= (Copy_u8xMul_Factor << 18);
 }
+
+
+static void RCC_voidBus_Prescaler(RCC_Config_t *Copy_u8RCC_Config)
+{
+	if(NULL == Copy_u8RCC_Config)
+	{
+		return;
+	}
+	else
+	{
+		RCC->CFGR |= ((Copy_u8RCC_Config->Prescaler.AHB_Prescaler)  << 4);
+		RCC->CFGR |= ((Copy_u8RCC_Config->Prescaler.ABP1_Prescaler) << 8);
+		RCC->CFGR |= ((Copy_u8RCC_Config->Prescaler.ABP2_Prescaler) << 11);
+	}
+}
+
+
