@@ -1,5 +1,5 @@
 /* 
- * File:   RCC_CONFIG.h
+ * File:   RCC_config.h
  * Author: Mohamed_Nagy
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
@@ -7,11 +7,14 @@
  */
 
 
-#ifndef __RCC_CONFIG_H__
-#define __RCC_CONFIG_H__
+#ifndef RCC_CONFIG_H
+#define RCC_CONFIG_H
+
+
+/*      HSE ByPass define RCC_HSE_BYPASS         */
+/* TWO MODES : HSE_BYPASS_OFF , HSE_BYPASS_ON    */
+#define RCC_HSE_BYPASS        HSE_BYPASS_OFF
 
 
 
-
-
-#endif  __RCC_CONFIG_H__
+#endif
