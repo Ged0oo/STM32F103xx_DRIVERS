@@ -1,25 +1,28 @@
-/* 
+/*
  * File:   STD_TYPES.h
  * Author: Mohamed_Nagy
- * https://github.com/Ged0oo 
+ * https://github.com/Ged0oo
  * https://www.linkedin.com/in/mohamednagyofficial/
  * Created on February 16, 2023, 8:41 PM
  */
 
 
-#ifndef STD_TYPES_H_
-#define STD_TYPES_H_
+#ifndef STD_TYPES_H
+#define STD_TYPES_H
 
-typedef		unsigned char			u8;
-typedef		unsigned short			u16;
-typedef		unsigned int			u32;
-
-typedef		signed char				s8;
-typedef		signed short			s16;
-typedef		signed int				s32;
-
-typedef		float 					f32;
-typedef		double 					f64;
+#include "BIT_MATH.h"
+#include "STD_TYPES.h"
 
 
-#endif /* STD_TYPES_H_ */
+typedef unsigned char          uint8 ;
+typedef unsigned short int     uint16 ;
+typedef unsigned long int      uint32 ;
+
+typedef signed char          sint8 ;
+typedef signed short int     sint16 ;
+typedef signed long int      sint32 ;
+
+#define NULL                   (void*)0
+
+
+#endif
