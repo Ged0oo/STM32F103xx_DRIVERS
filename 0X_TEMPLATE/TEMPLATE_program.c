@@ -10,5 +10,3 @@
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
 #include "TEMPLATE_interface.h"
-#include "TEMPLATE_private.h"
-#include "TEMPLATE_config.h"
