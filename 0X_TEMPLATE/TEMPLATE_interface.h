@@ -10,4 +10,9 @@
 #ifndef __TEMPLATE_INTERFACE_H__
 #define __TEMPLATE_INTERFACE_H__
 				   
+#include "TEMPLATE_config.h"
+#include "TEMPLATE_private.h"
+
+
+
 #endif  __TEMPLATE_INTERFACE_H__
