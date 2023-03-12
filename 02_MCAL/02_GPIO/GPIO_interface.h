@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 /* 
- * File:   GPIO.INTERFACE.h
+ * File:   GPIO_INTERFACE.h
  * Author: Mohamed_Nagy
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
@@ -8,11 +7,11 @@
  */
 
 
-#ifndef __GPIO_CONFIG_H__
-#define __GPIO_CONFIG_H__
+#ifndef __GPIO_INTERFACE_H__
+#define __GPIO_INTERFACE_H__
 
-#include "TEMPLATE_private.h"
-#include "TEMPLATE_config.h"
+#include "GPIO_private.h"
+#include "GPIO_config.h"
 
 /*GPIO INPUT MODE CONFEGURATIONS */
 #define 		GPIO_PIN_INPUT_ANALOG_MODE                 (0x0)
@@ -89,4 +88,4 @@ uint8 GPIO_u8ReadPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin);
 uint8 GPIO_u8ReadLockPinState(GPIO_t *GPIOx , uint8 Copy_u8Pin);
 
 
-#endif __GPIO_CONFIG_H__
+#endif

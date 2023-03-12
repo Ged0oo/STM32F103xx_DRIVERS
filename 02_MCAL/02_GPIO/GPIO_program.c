@@ -9,10 +9,11 @@
 
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
-#include "TEMPLATE_interface.h"
+#include "GPIO_interface.h"
+#include "GPIO_private.h"
+#include "GPIO_config.h"
 
-static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx ,uint8 Copy_u8Pin ,uint8 Copy_u8Mode);
-
+static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode);
 
 void GPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 {
@@ -21,57 +22,15 @@ void GPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 		return;
 	}
 	
-	GPIO_ConfigType GPIO_Pin_Conf = 
-	{
-		.GPIO_PinMode   = Copy_u8Mode,
-		.GPIO_PinNumber = Copy_u8Pin
-	};
+	GPIO_ConfigType GPIO_Pin_Conf;
+
+	GPIO_Pin_Conf.GPIO_PinMode   = Copy_u8Mode;
+	GPIO_Pin_Conf.GPIO_PinNumber = Copy_u8Pin;
 	
-	GPIO_voidConfgPin_Mode(GPIOx , GPIO_Pin_Conf->GPIO_PinNumber , GPIO_Pin_Conf->GPIO_PinMode)
+	GPIO_voidConfgPin_Mode(GPIOx , GPIO_Pin_Conf.GPIO_PinNumber , GPIO_Pin_Conf.GPIO_PinMode);
 }
 
-
-void GPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val)
-{
-	if(Copy_u8Pin > 15)
-	{
-		return;
-	}
-	
-	if(Copy_u8Val == GPIO_HIGH)
-	{
-		GPIOx->BSRR = (1 << Copy_u8Pin);
-	}
-	else
-	{
-		GPIOx->BRR  = (1 << Copy_u8Pin);
-	}
-}
-
-
-void GPIO_voidLockPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8LockState)
-{
-	
-}
-
-
-uint8 GPIO_u8ReadPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin)
-{
-	if(Copy_u8Pin > 15)
-	{
-		return 0;
-	}
-	
-	return GET_BIT(GPIOx->IDR , Copy_u8Pin);;
-}
-
-
-uint8 GPIO_u8ReadLockPinState(GPIO_t *GPIOx , uint8 Copy_u8Pin)
-{
-	
-}
-
-static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx ,uint8 Copy_u8Pin ,uint8 Copy_u8Mode)
+static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 {
 	if(Copy_u8Pin > 15)
 	{
@@ -99,6 +58,31 @@ static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx ,uint8 Copy_u8Pin ,uint8 Copy_u
 	}
 }
 
+void GPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val)
+{
+	if(Copy_u8Pin > 15)
+	{
+		return;
+	}
+
+	if(Copy_u8Val == GPIO_HIGH)
+	{
+		GPIOx->BSRR = (1 << Copy_u8Pin);
+	}
+	else
+	{
+		GPIOx->BRR  = (1 << Copy_u8Pin);
+	}
+}
 
 
+uint8 GPIO_u8ReadPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin)
+{
+	if(Copy_u8Pin > 15)
+	{
+		return 0;
+	}
+
+	return GET_BIT(GPIOx->IDR , Copy_u8Pin);;
+}
 

@@ -7,9 +7,11 @@
  */
 
 
-#ifndef __GPIO_CONFIG_H__
-#define __GPIO_CONFIG_H__
+#ifndef __GPIO_PRIVATE_H__
+#define __GPIO_PRIVATE_H__
 
+#include "STD_TYPES.h"
+#include "BIT_MATH.h"
 
 /* GPIO PORTS BASE ADRESSES */
 #define 		GPIOA_BASE_ADDRESS			0x40010800
@@ -42,4 +44,4 @@ typedef struct
 #define 		GPIOE               ((GPIO_t *) GPIOE_BASE_ADDRESS )
 
 
-#endif  __GPIO_CONFIG_H__
+#endif
