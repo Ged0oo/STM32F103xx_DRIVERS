@@ -12,9 +12,15 @@
 #include "../include/RCC_private.h"
 
 
+static void RCC_voidClockSource(uint8 Copy_u8xClock);
+static void RCC_voidBus_Prescaler(RCC_Config_t *Copy_u8RCC_Config);
+static void RCC_voidPLL_Mul(uint8 Copy_u8xMul_Factor);
+static void RCC_voidClockSource(uint8 Copy_u8xClock);
+static void RCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source);
+
+
 void RCC_voidClockInit(RCC_Config_t *RCC_Config)
 {
-	
 	if(NULL == RCC_Config)
 	{
 		return;
@@ -57,7 +63,6 @@ void RCC_voidPeripheralClockEnable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u
 		/* return error */
 		break;
 	}
-
 }
 
 
@@ -88,8 +93,8 @@ void RCC_voidPeripheralClockDisable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_
 static void RCC_voidClockSource(uint8 Copy_u8xClock)
 {
 	/*First clear configuration bits*/
-	CLEAR_BIT(RCC->CFGR,0);
-	CLEAR_BIT(RCC->CFGR,1);
+	CLEAR_BIT(RCC->CFGR , 0);
+	CLEAR_BIT(RCC->CFGR , 1);
 
 	/*Choose clock source*/
 	switch(Copy_u8xClock)
@@ -97,54 +102,54 @@ static void RCC_voidClockSource(uint8 Copy_u8xClock)
 	/* Internal clock*/
 	case RCC_HSI:
 		/*Set HSION BIT*/
-		SET_BIT(RCC->CR,0);
+		SET_BIT(RCC->CR , 0);
 		/*Wait until the clock is stable*/
-		while(BIT_IS_CLEAR(RCC->CR,1));
+		while(BIT_IS_CLEAR(RCC->CR , 1));
 		
 		/* Select HSI as clock source */
-		CLEAR_BIT(RCC->CFGR,0);
-		CLEAR_BIT(RCC->CFGR,1);
+		CLEAR_BIT(RCC->CFGR , 0);
+		CLEAR_BIT(RCC->CFGR , 1);
 		break;
 
 		/*External clock*/
 	case RCC_HSE :
 		/* Set HSEON BIT */
-		SET_BIT(RCC->CR,16);
+		SET_BIT(RCC->CR , 16);
 		/* Check if Bypass is on */
 		#if RCC_HSE_BYPASS == HSE_BYPASS_OFF_CRYSTAL
-				CLEAR_BIT(RCC->CR,18);
+				CLEAR_BIT(RCC->CR , 18);
 		#elif RCC_HSE_BYPASS == HSE_BYPASS_ON_RC
-				SET_BIT(RCC->CR,18);
+				SET_BIT(RCC->CR , 18);
 		#endif
 		/*Wait until external clock is stable*/
-		while(BIT_IS_CLEAR(RCC->CR,17));
+		while(BIT_IS_CLEAR(RCC->CR , 17));
 
 		/* Select HSE as clock source */
-		SET_BIT(RCC->CFGR,0);
-		CLEAR_BIT(RCC->CFGR,1);
+		SET_BIT(RCC->CFGR , 0);
+		CLEAR_BIT(RCC->CFGR , 1);
 		break;
 
 		/*PLL clock*/
 	case RCC_PLL:
 		/* Set PLLON BIT */
-		SET_BIT(RCC->CR,24);
+		SET_BIT(RCC->CR , 24);
 		/*Wait until PLL clock is stable*/
-		while(BIT_IS_CLEAR(RCC->CR,25));
+		while(BIT_IS_CLEAR(RCC->CR , 25));
 
-		CLEAR_BIT(RCC->CFGR,0);
-		SET_BIT(RCC->CFGR,1);
+		CLEAR_BIT(RCC->CFGR , 0);
+		SET_BIT(RCC->CFGR , 1);
 		break;
 
 		/* default HSI will be used */
 	default:
 		/*Set HSION BIT*/
-		SET_BIT(RCC->CR,0);
+		SET_BIT(RCC->CR , 0);
 		/*Wait until the clock is stable*/
-		while(BIT_IS_CLEAR(RCC->CR,1));
+		while(BIT_IS_CLEAR(RCC->CR , 1));
 		
 		/* Select HSI as clock source */
-		CLEAR_BIT(RCC->CFGR,0);
-		CLEAR_BIT(RCC->CFGR,1);
+		CLEAR_BIT(RCC->CFGR , 0);
+		CLEAR_BIT(RCC->CFGR , 1);
 		break;
 	}
 }

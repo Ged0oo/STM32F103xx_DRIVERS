@@ -196,10 +196,5 @@ void RCC_voidClockInit(RCC_Config_t *RCC_Config);
 void RCC_voidPeripheralClockEnable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName);
 void RCC_voidPeripheralClockDisable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName);
 
-static void RCC_voidClockSource(uint8 Copy_u8xClock);
-static void RCC_voidBus_Prescaler(RCC_Config_t *Copy_u8RCC_Config);
-static void RCC_voidPLL_Mul(uint8 Copy_u8xMul_Factor);
-static void RCC_voidClockSource(uint8 Copy_u8xClock);
-static void RCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source);
 
 #endif
