@@ -6,16 +6,15 @@
  * Created on February 16, 2023, 8:41 PM
  */
 
+
+#ifndef RCC_INTERFACE_H
+#define RCC_INTERFACE_H
+
+
 #include "BIT_MATH.h"
 #include "STD_TYPES.h"
 #include "RCC_config.h"
 #include "RCC_private.h"
-
-
-
-
-#ifndef RCC_INTERFACE_H
-#define RCC_INTERFACE_H
 
 
 
@@ -192,9 +191,9 @@ typedef struct
 
 
 /* prototypes of functions */
-void RCC_voidClockInit(RCC_Config_t *RCC_Config);
-void RCC_voidPeripheralClockEnable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName);
-void RCC_voidPeripheralClockDisable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName);
+void MRCC_voidClockInit(RCC_Config_t *RCC_Config);
+void MRCC_voidPeripheralClockEnable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName);
+void MRCC_voidPeripheralClockDisable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName);
 
 
 #endif

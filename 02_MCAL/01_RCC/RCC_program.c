@@ -12,14 +12,14 @@
 #include "../include/RCC_private.h"
 
 
-static void RCC_voidClockSource(uint8 Copy_u8xClock);
-static void RCC_voidBus_Prescaler(RCC_Config_t *Copy_u8RCC_Config);
-static void RCC_voidPLL_Mul(uint8 Copy_u8xMul_Factor);
-static void RCC_voidClockSource(uint8 Copy_u8xClock);
-static void RCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source);
+static void MRCC_voidClockSource(uint8 Copy_u8xClock);
+static void MRCC_voidBus_Prescaler(RCC_Config_t *Copy_u8RCC_Config);
+static void MRCC_voidPLL_Mul(uint8 Copy_u8xMul_Factor);
+static void MRCC_voidClockSource(uint8 Copy_u8xClock);
+static void MRCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source);
 
 
-void RCC_voidClockInit(RCC_Config_t *RCC_Config)
+void MRCC_voidClockInit(RCC_Config_t *RCC_Config)
 {
 	if(NULL == RCC_Config)
 	{
@@ -27,23 +27,23 @@ void RCC_voidClockInit(RCC_Config_t *RCC_Config)
 	}
 	else
 	{
-		RCC_voidClockSource(RCC_Config->ClockSource);
+		MRCC_voidClockSource(RCC_Config->ClockSource);
 		if(RCC_Config->ClockSource == RCC_PLL)
 		{
-			RCC_voidPLL_Clock_Source(RCC_Config->PLL_Config.PLL_Source);
-			RCC_voidPLL_Mul(RCC_Config->PLL_Config.PLL_Mul_Factor);
+			MRCC_voidPLL_Clock_Source(RCC_Config->PLL_Config.PLL_Source);
+			MRCC_voidPLL_Mul(RCC_Config->PLL_Config.PLL_Mul_Factor);
 		}
 		else if(RCC_Config->ClockSource == RCC_HSI)
 		{
 			/* HSI Trim function*/
 		}
 		/* Adjust Prescaler */
-		RCC_voidBus_Prescaler(RCC_Config);
+		MRCC_voidBus_Prescaler(RCC_Config);
 	}
 }
 
 
-void RCC_voidPeripheralClockEnable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName)
+void MRCC_voidPeripheralClockEnable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName)
 {
 	switch(Copy_u8BusName)
 	{
@@ -66,7 +66,7 @@ void RCC_voidPeripheralClockEnable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u
 }
 
 
-void RCC_voidPeripheralClockDisable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName)
+void MRCC_voidPeripheralClockDisable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_u8PeripheralName)
 {
 	switch(Copy_u8BusName)
 	{
@@ -90,7 +90,7 @@ void RCC_voidPeripheralClockDisable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy_
 }
 
 
-static void RCC_voidClockSource(uint8 Copy_u8xClock)
+static void MRCC_voidClockSource(uint8 Copy_u8xClock)
 {
 	/*First clear configuration bits*/
 	CLEAR_BIT(RCC->CFGR , 0);
@@ -155,7 +155,7 @@ static void RCC_voidClockSource(uint8 Copy_u8xClock)
 }
 
 
-static void RCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source)
+static void MRCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source)
 {
 	/* First Clear the Bits */
 	CLEAR_BIT(RCC->CFGR,17);
@@ -210,13 +210,13 @@ static void RCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source)
 }
 
 
-static void RCC_voidPLL_Mul(uint8 Copy_u8xMul_Factor)
+static void MRCC_voidPLL_Mul(uint8 Copy_u8xMul_Factor)
 {
 	RCC->CFGR |= (Copy_u8xMul_Factor << 18);
 }
 
 
-static void RCC_voidBus_Prescaler(RCC_Config_t *Copy_u8RCC_Config)
+static void MRCC_voidBus_Prescaler(RCC_Config_t *Copy_u8RCC_Config)
 {
 	if(NULL == Copy_u8RCC_Config)
 	{
