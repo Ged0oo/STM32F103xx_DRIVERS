@@ -13,9 +13,9 @@
 #include "GPIO_private.h"
 #include "GPIO_config.h"
 
-static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode);
+static void MGPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode);
 
-void GPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
+void MGPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 {
 	if(Copy_u8Pin > 15)
 	{
@@ -27,10 +27,10 @@ void GPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 	GPIO_Pin_Conf.GPIO_PinMode   = Copy_u8Mode;
 	GPIO_Pin_Conf.GPIO_PinNumber = Copy_u8Pin;
 	
-	GPIO_voidConfgPin_Mode(GPIOx , GPIO_Pin_Conf.GPIO_PinNumber , GPIO_Pin_Conf.GPIO_PinMode);
+	MGPIO_voidConfgPin_Mode(GPIOx , GPIO_Pin_Conf.GPIO_PinNumber , GPIO_Pin_Conf.GPIO_PinMode);
 }
 
-static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
+static void MGPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 {
 	if(Copy_u8Pin > 15)
 	{
@@ -58,7 +58,7 @@ static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy
 	}
 }
 
-void GPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val)
+void MGPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val)
 {
 	if(Copy_u8Pin > 15)
 	{
@@ -76,7 +76,7 @@ void GPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val)
 }
 
 
-uint8 GPIO_u8ReadPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin)
+uint8 MGPIO_u8ReadPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin)
 {
 	if(Copy_u8Pin > 15)
 	{
