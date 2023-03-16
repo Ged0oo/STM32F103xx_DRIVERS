@@ -23,6 +23,7 @@
 #define 		GPIOG_BASE_ADDRESS       	0x40012000
 
 
+
 /* GPIO PORTS REGISTERS */
 typedef struct
 {
