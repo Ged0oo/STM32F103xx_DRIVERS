@@ -16,6 +16,4 @@
 /* TWO MODES : HSE_BYPASS_OFF , HSE_BYPASS_ON    */
 #define RCC_HSE_BYPASS        HSE_BYPASS_OFF
 
-
-
 #endif
