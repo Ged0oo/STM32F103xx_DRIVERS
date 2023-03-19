@@ -4,19 +4,20 @@
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
  * Created on February 16, 2023, 8:41 PM
+ * Last Update on March 19, 2023
  */
 
 
-#include "../include/RCC_interface.h"
-#include "../include/RCC_config.h"
-#include "../include/RCC_private.h"
+#include "RCC_interface.h"
+#include "RCC_config.h"
+#include "RCC_private.h"
 
 
-static void MRCC_voidClockSource(uint8 Copy_u8xClock);
-static void MRCC_voidBus_Prescaler(RCC_Config_t *Copy_u8RCC_Config);
-static void MRCC_voidPLL_Mul(uint8 Copy_u8xMul_Factor);
-static void MRCC_voidClockSource(uint8 Copy_u8xClock);
-static void MRCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source);
+static void RCC_voidClockSource(uint8 Copy_u8xClock);
+static void RCC_voidBus_Prescaler(RCC_Config_t *Copy_u8RCC_Config);
+static void RCC_voidPLL_Mul(uint8 Copy_u8xMul_Factor);
+static void RCC_voidClockSource(uint8 Copy_u8xClock);
+static void RCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source);
 
 
 void MRCC_voidClockInit(RCC_Config_t *RCC_Config)
@@ -27,18 +28,18 @@ void MRCC_voidClockInit(RCC_Config_t *RCC_Config)
 	}
 	else
 	{
-		MRCC_voidClockSource(RCC_Config->ClockSource);
+		RCC_voidClockSource(RCC_Config->ClockSource);
 		if(RCC_Config->ClockSource == RCC_PLL)
 		{
-			MRCC_voidPLL_Clock_Source(RCC_Config->PLL_Config.PLL_Source);
-			MRCC_voidPLL_Mul(RCC_Config->PLL_Config.PLL_Mul_Factor);
+			RCC_voidPLL_Clock_Source(RCC_Config->PLL_Config.PLL_Source);
+			RCC_voidPLL_Mul(RCC_Config->PLL_Config.PLL_Mul_Factor);
 		}
 		else if(RCC_Config->ClockSource == RCC_HSI)
 		{
 			/* HSI Trim function*/
 		}
 		/* Adjust Prescaler */
-		MRCC_voidBus_Prescaler(RCC_Config);
+		RCC_voidBus_Prescaler(RCC_Config);
 	}
 }
 
@@ -90,7 +91,7 @@ void MRCC_voidPeripheralClockDisable(uint8 Copy_u8BusName, RCC_Peripheral_t Copy
 }
 
 
-static void MRCC_voidClockSource(uint8 Copy_u8xClock)
+static void RCC_voidClockSource(uint8 Copy_u8xClock)
 {
 	/*First clear configuration bits*/
 	CLEAR_BIT(RCC->CFGR , 0);
@@ -155,7 +156,7 @@ static void MRCC_voidClockSource(uint8 Copy_u8xClock)
 }
 
 
-static void MRCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source)
+static void RCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source)
 {
 	/* First Clear the Bits */
 	CLEAR_BIT(RCC->CFGR,17);
@@ -210,13 +211,13 @@ static void MRCC_voidPLL_Clock_Source(uint8 Copy_u8xPLL_Source)
 }
 
 
-static void MRCC_voidPLL_Mul(uint8 Copy_u8xMul_Factor)
+static void RCC_voidPLL_Mul(uint8 Copy_u8xMul_Factor)
 {
 	RCC->CFGR |= (Copy_u8xMul_Factor << 18);
 }
 
 
-static void MRCC_voidBus_Prescaler(RCC_Config_t *Copy_u8RCC_Config)
+static void RCC_voidBus_Prescaler(RCC_Config_t *Copy_u8RCC_Config)
 {
 	if(NULL == Copy_u8RCC_Config)
 	{
