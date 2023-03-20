@@ -4,6 +4,7 @@
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
  * Created on February 16, 2023, 8:41 PM
+ * Last Update on March 19, 2023
  */
 
 
@@ -12,8 +13,6 @@
 
 #include "GPIO_private.h"
 #include "GPIO_config.h"
-#include "BIT_MATH.h"
-#include "STD_TYPES.h"
 
 /*GPIO INPUT MODE CONFEGURATIONS */
 #define 		GPIO_PIN_INPUT_ANALOG_MODE                 (0x0)
@@ -83,11 +82,11 @@ typedef struct
 
 
 /* GPIO APIs PROTOTYPES */
-void MGPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode);
-void MGPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val);
-void MGPIO_voidLockPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8LockState);
-uint8 MGPIO_u8ReadPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin);
-uint8 MGPIO_u8ReadLockPinState(GPIO_t *GPIOx , uint8 Copy_u8Pin);
+void GPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode);
+void GPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val);
+void GPIO_voidLockPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8LockState);
+uint8 GPIO_u8ReadPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin);
+uint8 GPIO_u8ReadLockPinState(GPIO_t *GPIOx , uint8 Copy_u8Pin);
 
 
 #endif
