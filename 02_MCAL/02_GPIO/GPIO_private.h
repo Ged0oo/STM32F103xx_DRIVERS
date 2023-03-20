@@ -37,7 +37,7 @@ typedef struct
 
 
 /* GPIO PORTS REGISTERS ADRESSES */
-#define 		GPIOA				((GPIO_t *) GPIOA_BASE_ADDRESS )
+#define 		GPIOA		    ((GPIO_t *) GPIOA_BASE_ADDRESS )
 #define 		GPIOB               ((GPIO_t *) GPIOB_BASE_ADDRESS )
 #define 		GPIOC               ((GPIO_t *) GPIOC_BASE_ADDRESS )
 #define 		GPIOD               ((GPIO_t *) GPIOD_BASE_ADDRESS )
