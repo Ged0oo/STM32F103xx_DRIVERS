@@ -4,6 +4,7 @@
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
  * Created on February 16, 2023, 8:41 PM
+ * Last Update on March 19, 2023
  */
 
 
@@ -13,9 +14,9 @@
 #include "GPIO_private.h"
 #include "GPIO_config.h"
 
-static void MGPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode);
+static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode);
 
-void MGPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
+void GPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 {
 	if(Copy_u8Pin > 15)
 	{
@@ -27,10 +28,10 @@ void MGPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 	GPIO_Pin_Conf.GPIO_PinMode   = Copy_u8Mode;
 	GPIO_Pin_Conf.GPIO_PinNumber = Copy_u8Pin;
 	
-	MGPIO_voidConfgPin_Mode(GPIOx , GPIO_Pin_Conf.GPIO_PinNumber , GPIO_Pin_Conf.GPIO_PinMode);
+	GPIO_voidConfgPin_Mode(GPIOx , GPIO_Pin_Conf.GPIO_PinNumber , GPIO_Pin_Conf.GPIO_PinMode);
 }
 
-static void MGPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
+static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 {
 	if(Copy_u8Pin > 15)
 	{
@@ -58,7 +59,7 @@ static void MGPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Cop
 	}
 }
 
-void MGPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val)
+void GPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val)
 {
 	if(Copy_u8Pin > 15)
 	{
@@ -76,7 +77,7 @@ void MGPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val)
 }
 
 
-uint8 MGPIO_u8ReadPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin)
+uint8 GPIO_u8ReadPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin)
 {
 	if(Copy_u8Pin > 15)
 	{
