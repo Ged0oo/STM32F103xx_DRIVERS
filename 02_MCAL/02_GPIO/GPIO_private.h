@@ -4,8 +4,8 @@
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
  * Created on February 16, 2023, 8:41 PM
+ * Last Update on March 19, 2023
  */
-
 
 #ifndef __GPIO_PRIVATE_H__
 #define __GPIO_PRIVATE_H__
@@ -23,7 +23,6 @@
 #define 		GPIOG_BASE_ADDRESS       	0x40012000
 
 
-
 /* GPIO PORTS REGISTERS */
 typedef struct
 {
@@ -35,7 +34,6 @@ typedef struct
 	volatile uint32 BRR;
 	volatile uint32 LCKR;
 }GPIO_t;
-
 
 
 /* GPIO PORTS REGISTERS ADRESSES */
