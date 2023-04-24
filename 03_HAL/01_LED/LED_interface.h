@@ -1,5 +1,5 @@
 /* 
- * File:   TEMPLATE.INTERFACE.h
+ * File:   LED_INTERFACE.h
  * Author: Mohamed_Nagy
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
@@ -11,6 +11,11 @@
 #define __LED_CONFIG_H__
 
 
+#include "BIT_MATH.h"
+#include "STD_TYPES.h"
+#include "LED_config.h"
+#include "GPIO_interface.h"
+
 
 typedef enum
 {
@@ -21,15 +26,17 @@ typedef enum
 
 typedef struct
 {
-	GPIO_t GPIO_portX;
+	GPIO_t* GPIO_portX;
 	uint8 GPIO_pinX;
 	tLED_State LED_state;
-}LED_ConfigType
+}LED_ConfigType;
 
-void LED_vInit(const LED_ConfigType *LED_obj);
-void LED_vSetState(const LED_ConfigType *LED_obj, tLED_State Copy_xState);
-void LED_vToggle(const LED_ConfigType *LED_obj);
-tLED_State LED_xGetState(const LED_ConfigType *LED_obj);
+
+
+void LED_vInit(LED_ConfigType *LED_obj);
+void LED_vSetState(LED_ConfigType *LED_obj, tLED_State Copy_xState);
+void LED_vToggle(LED_ConfigType *LED_obj);
+tLED_State LED_xGetState(LED_ConfigType *LED_obj);
 
 
 
