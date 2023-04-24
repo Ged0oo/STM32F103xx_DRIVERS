@@ -1,5 +1,5 @@
 /* 
- * File:   TEMPLATE_PROGRAM.c
+ * File:   LED_PROGRAM.c
  * Author: Mohamed_Nagy
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
@@ -13,7 +13,7 @@
 #include "LED_config.h"
 
 
-void LED_vInit(const LED_ConfigType *LED_obj)
+void LED_vInit(LED_ConfigType *LED_obj)
 {
 	if(NULL == LED_obj)
 	{
@@ -27,7 +27,7 @@ void LED_vInit(const LED_ConfigType *LED_obj)
 }
 
 
-void LED_vSetState(const LED_ConfigType *LED_obj, tLED_State Copy_xState)
+void LED_vSetState(LED_ConfigType *LED_obj, tLED_State Copy_xState)
 {
 	if(NULL == LED_obj)
 	{
@@ -40,7 +40,7 @@ void LED_vSetState(const LED_ConfigType *LED_obj, tLED_State Copy_xState)
 }
 
 
-void LED_vToggle(const LED_ConfigType *LED_obj)
+void LED_vToggle(LED_ConfigType *LED_obj)
 {
 	if(NULL == LED_obj)
 	{
@@ -48,19 +48,12 @@ void LED_vToggle(const LED_ConfigType *LED_obj)
 	}
 	else
 	{
-		if(LED_ON == LED_obj->LED_state)
-		{
-			GPIO_voidWritePortPin(LED_obj->GPIO_portX , LED_obj->GPIO_pinX , LED_OFF);
-		}
-		else if(LED_OFF == LED_obj->LED_state)
-		{
-			GPIO_voidWritePortPin(LED_obj->GPIO_portX , LED_obj->GPIO_pinX , LED_ON);
-		}
+		LED_obj->LED_state ^= 1;
 	}
 }
 
 
-tLED_State LED_xGetState(const LED_ConfigType *LED_obj)
+tLED_State LED_xGetState(LED_ConfigType *LED_obj)
 {
 	if(NULL == LED_obj)
 	{
