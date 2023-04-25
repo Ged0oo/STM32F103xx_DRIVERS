@@ -21,7 +21,7 @@ void LED_vInit(LED_ConfigType *LED_obj)
 	}
 	else
 	{
-		GPIO_voidInitPortPin(LED_obj->GPIO_portX , LED_obj->GPIO_pinX , GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_2MHZ);
+		GPIO_voidInitPortPin(LED_obj->GPIO_portX , LED_obj->GPIO_pinX , GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_10MHZ);
 		LED_vSetState(LED_obj , LED_obj->LED_state);
 	}
 }
@@ -48,6 +48,7 @@ void LED_vToggle(LED_ConfigType *LED_obj)
 	}
 	else
 	{
+		LED_vInit(LED_obj);
 		LED_obj->LED_state ^= 1;
 	}
 }
