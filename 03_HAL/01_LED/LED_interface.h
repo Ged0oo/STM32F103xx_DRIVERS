@@ -42,4 +42,4 @@ tLED_State LED_xGetState(LED_ConfigType *LED_obj);
 
 
 
-#endif  __LED_CONFIG_H__
+#endif
