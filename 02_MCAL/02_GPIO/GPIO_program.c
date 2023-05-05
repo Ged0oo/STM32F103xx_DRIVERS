@@ -4,7 +4,6 @@
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
  * Created on February 16, 2023, 8:41 PM
- * Last Update on March 19, 2023
  */
 
 
@@ -16,20 +15,19 @@
 
 static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode);
 
-void GPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
+
+void GPIO_voidInitPortPin(GPIO_ConfigType *_gpio)
 {
+	uint8 Copy_u8Pin  = _gpio->GPIO_PinNumber;
+	uint8 Copy_u8Mode = _gpio->GPIO_PinMode;
 	if(Copy_u8Pin > 15)
 	{
 		return;
 	}
-	
-	GPIO_ConfigType GPIO_Pin_Conf;
-
-	GPIO_Pin_Conf.GPIO_PinMode   = Copy_u8Mode;
-	GPIO_Pin_Conf.GPIO_PinNumber = Copy_u8Pin;
-	
-	GPIO_voidConfgPin_Mode(GPIOx , GPIO_Pin_Conf.GPIO_PinNumber , GPIO_Pin_Conf.GPIO_PinMode);
+	GPIO_voidConfgPin_Mode(_gpio->GPIOx , Copy_u8Pin , Copy_u8Mode);
+	GPIO_voidWritePortPin(_gpio , _gpio->GPIO_Logic);
 }
+
 
 static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 {
@@ -59,31 +57,33 @@ static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy
 	}
 }
 
-void GPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val)
+
+
+void GPIO_voidWritePortPin(GPIO_ConfigType *_gpio , uint8 Copy_u8Val)
 {
-	if(Copy_u8Pin > 15)
+	if(_gpio->GPIO_PinNumber > 15)
 	{
 		return;
 	}
 
 	if(Copy_u8Val == GPIO_HIGH)
 	{
-		GPIOx->BSRR = (1 << Copy_u8Pin);
+		_gpio->GPIOx->BSRR = 1 << (_gpio->GPIO_PinNumber);
 	}
 	else
 	{
-		GPIOx->BRR  = (1 << Copy_u8Pin);
+		_gpio->GPIOx->BRR  = 1 << (_gpio->GPIO_PinNumber);
 	}
 }
 
 
-uint8 GPIO_u8ReadPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin)
+uint8 GPIO_u8ReadPortPin(GPIO_ConfigType *_gpio)
 {
-	if(Copy_u8Pin > 15)
+	if(_gpio->GPIO_PinNumber > 15)
 	{
 		return 0;
 	}
 
-	return GET_BIT(GPIOx->IDR , Copy_u8Pin);;
+	return GET_BIT(_gpio->GPIOx->IDR , _gpio->GPIO_PinNumber);
 }
 
