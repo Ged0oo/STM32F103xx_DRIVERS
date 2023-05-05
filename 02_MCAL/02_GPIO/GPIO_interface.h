@@ -4,7 +4,6 @@
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
  * Created on February 16, 2023, 8:41 PM
- * Last Update on March 19, 2023
  */
 
 
@@ -22,27 +21,27 @@
 
 /*GPIO CONFEGURATIONS FOR SPEED 50 MHZ*/
 #define 		GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_50MHZ            		(0x3)
-#define 		GPIO_PIN_OUTPUT_OPENDRAIN_MODE_50MHZ              			(0x7)
+#define 		GPIO_PIN_OUTPUT_OPENDRAIN_MODE_50MHZ              			   		(0x7)
 #define 		GPIO_PIN_ALTERANTIVE_FUNCTION_OUTPUT_PUSHPULL_MODE_50MHZ           	(0xB)
 #define 		GPIO_PIN_ALTERANTIVE_FUNCTION_OUTPUT_OPENDRAIN_MODE_50MHZ          	(0xF)
 
 
 /*GPIO CONFEGURATIONS FOR SPEED 10 MHZ*/
 #define 		GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_10MHZ            		(0x1)
-#define 		GPIO_PIN_OUTPUT_OPENDRAIN_MODE_10MHZ              			(0x5)
+#define 		GPIO_PIN_OUTPUT_OPENDRAIN_MODE_10MHZ              			   		(0x5)
 #define 		GPIO_PIN_ALTERANTIVE_FUNCTION_OUTPUT_PUSHPULL_MODE_10MHZ           	(0x9)
 #define 		GPIO_PIN_ALTERANTIVE_FUNCTION_OUTPUT_OPENDRAIN_MODE_10MHZ          	(0xD)
 
 
 /*GPIO CONFEGURATIONS FOR SPEED 2 MHZ*/
 #define 		GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_2MHZ            		(0x2)
-#define 		GPIO_PIN_OUTPUT_OPENDRAIN_MODE_2MHZ              			(0x6)
+#define 		GPIO_PIN_OUTPUT_OPENDRAIN_MODE_2MHZ              			   		(0x6)
 #define 		GPIO_PIN_ALTERANTIVE_FUNCTION_OUTPUT_PUSHPULL_MODE_2HZ           	(0xA)
 #define 		GPIO_PIN_ALTERANTIVE_FUNCTION_OUTPUT_OPENDRAIN_MODE_2MHZ          	(0xE)
 
 
 /*GPIO PIN NUMBERING */
-#define 		GPIO_PIN_0	        (0)
+#define 		GPIO_PIN_0				(0)
 #define 		GPIO_PIN_1              (1)
 #define 		GPIO_PIN_2              (2)
 #define 		GPIO_PIN_3              (3)
@@ -60,7 +59,7 @@
 #define 		GPIO_PIN_15             (15)
 
 /* GPIO DIRECTION CONFEGURATIONS */
-#define 		GPIO_OUT		(GPIO_PIN_GP_OUTPUT_PUSHPULL_MODE_10MHZ)
+#define 		GPIO_OUT				(GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_10MHZ)
 #define 		GPIO_IN                 (GPIO_PIN_INPUT_PULLUP_DOWN_MODE)
 
 /* GPIO LEVEL CONFEGURATIONS */
@@ -75,18 +74,21 @@
 /* GPIO STRUCT CONFEGURATIONS */
 typedef struct
 {
-	uint16 GPIO_PinNumber;
-	uint32 GPIO_PinMode;
-	uint32 GPIO_PinAltFuncMode;
+	GPIO_t *GPIOx;
+	uint8 GPIO_PinNumber;
+	uint8 GPIO_PinMode;
+	uint8 GPIO_Logic;
 }GPIO_ConfigType;
 
 
 /* GPIO APIs PROTOTYPES */
-void GPIO_voidInitPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode);
-void GPIO_voidWritePortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Val);
-void GPIO_voidLockPin(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8LockState);
-uint8 GPIO_u8ReadPortPin(GPIO_t *GPIOx , uint8 Copy_u8Pin);
-uint8 GPIO_u8ReadLockPinState(GPIO_t *GPIOx , uint8 Copy_u8Pin);
+void GPIO_voidInitPortPin(GPIO_ConfigType *_gpio);
+
+void GPIO_voidWritePortPin(GPIO_ConfigType *_gpio , uint8 Copy_u8Val);
+uint8 GPIO_u8ReadPortPin(GPIO_ConfigType *_gpio);
+
+void GPIO_voidLockPin(GPIO_ConfigType *_gpio , uint8 Copy_u8LockState);
+uint8 GPIO_u8ReadLockPinState(GPIO_ConfigType *_gpio);
 
 
 #endif
