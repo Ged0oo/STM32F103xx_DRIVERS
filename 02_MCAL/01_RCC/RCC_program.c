@@ -4,13 +4,23 @@
  * https://github.com/Ged0oo 
  * https://www.linkedin.com/in/mohamednagyofficial/
  * Created on February 16, 2023, 8:41 PM
- * Last Update on March 19, 2023
  */
 
 
 #include "RCC_interface.h"
 #include "RCC_config.h"
 #include "RCC_private.h"
+
+
+
+RCC_Config_t RCC_obj =
+{
+	.ClockSource = CLOCK_SOURCE_TYPE,
+	.Prescaler.ABP1_Prescaler = ABP1_PRESCALER_TYPE,
+	.Prescaler.ABP2_Prescaler = ABP2_PRESCALER_TYPE,
+	.Prescaler.AHB_Prescaler  = AHB_PRESCALER_TYPE
+};
+
 
 
 static void RCC_voidClockSource(uint8 Copy_u8xClock);
