@@ -33,10 +33,7 @@ void LED_vInit(LED_ConfigType *LED_obj)
 void LED_vSetState(LED_ConfigType *LED_obj, tLED_State Copy_xState)
 {
 	if(NULL == LED_obj) return;
-	else
-	{
-		GPIO_voidWritePortPin(LED_obj, Copy_xState);
-	}
+	else GPIO_voidWritePortPin(LED_obj, Copy_xState);
 }
 
 
