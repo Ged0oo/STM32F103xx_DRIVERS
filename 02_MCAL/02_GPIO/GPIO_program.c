@@ -18,10 +18,7 @@ void GPIO_voidInitPortPin(GPIO_ConfigType *_gpio)
 {
 	uint8 Copy_u8Pin  = _gpio->GPIO_PinNumber;
 	uint8 Copy_u8Mode = _gpio->GPIO_PinMode;
-	if(Copy_u8Pin > 15)
-	{
-		return;
-	}
+	if(Copy_u8Pin > 15) return;
 	GPIO_voidConfgPin_Mode(_gpio->GPIOx , Copy_u8Pin , Copy_u8Mode);
 	GPIO_voidWritePortPin(_gpio , _gpio->GPIO_Logic);
 }
