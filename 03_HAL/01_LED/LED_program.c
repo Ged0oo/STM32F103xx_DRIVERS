@@ -51,10 +51,7 @@ void LED_vToggle(LED_ConfigType *LED_obj)
 tLED_State LED_xGetState(LED_ConfigType *LED_obj)
 {
 	if(NULL == LED_obj) return;
-	else
-	{
-		return LED_obj->LED_state;
-	}		
+	else return LED_obj->LED_state;		
 }
 
 
