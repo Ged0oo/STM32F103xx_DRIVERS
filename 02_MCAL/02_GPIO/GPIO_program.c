@@ -6,7 +6,6 @@
  * Created on February 16, 2023, 8:41 PM
  */
 
-
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
 #include "GPIO_interface.h"
@@ -14,7 +13,6 @@
 #include "GPIO_config.h"
 
 static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode);
-
 
 void GPIO_voidInitPortPin(GPIO_ConfigType *_gpio)
 {
@@ -27,7 +25,6 @@ void GPIO_voidInitPortPin(GPIO_ConfigType *_gpio)
 	GPIO_voidConfgPin_Mode(_gpio->GPIOx , Copy_u8Pin , Copy_u8Mode);
 	GPIO_voidWritePortPin(_gpio , _gpio->GPIO_Logic);
 }
-
 
 static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 {
@@ -57,8 +54,6 @@ static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy
 	}
 }
 
-
-
 void GPIO_voidWritePortPin(GPIO_ConfigType *_gpio , uint8 Copy_u8Val)
 {
 	if(_gpio->GPIO_PinNumber > 15)
@@ -76,7 +71,6 @@ void GPIO_voidWritePortPin(GPIO_ConfigType *_gpio , uint8 Copy_u8Val)
 	}
 }
 
-
 uint8 GPIO_u8ReadPortPin(GPIO_ConfigType *_gpio)
 {
 	if(_gpio->GPIO_PinNumber > 15)
@@ -86,4 +80,3 @@ uint8 GPIO_u8ReadPortPin(GPIO_ConfigType *_gpio)
 
 	return GET_BIT(_gpio->GPIOx->IDR , _gpio->GPIO_PinNumber);
 }
-
