@@ -6,12 +6,10 @@
  * Created on April 21, 2023, 8:41 PM
  */
 
-
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
 #include "LED_interface.h"
 #include "LED_config.h"
-
 
 void LED_vInit(LED_ConfigType *LED_obj)
 {
