@@ -29,13 +29,11 @@ void LED_vInit(LED_ConfigType *LED_obj)
 	}
 }
 
-
 void LED_vSetState(LED_ConfigType *LED_obj, tLED_State Copy_xState)
 {
 	if(NULL == LED_obj) return;
 	else GPIO_voidWritePortPin(LED_obj, Copy_xState);
 }
-
 
 void LED_vToggle(LED_ConfigType *LED_obj)
 {
@@ -46,7 +44,6 @@ void LED_vToggle(LED_ConfigType *LED_obj)
 		LED_obj->LED_state ^= 1;
 	}
 }
-
 
 tLED_State LED_xGetState(LED_ConfigType *LED_obj)
 {
