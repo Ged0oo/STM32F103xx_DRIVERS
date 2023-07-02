@@ -56,10 +56,6 @@ void GPIO_voidWritePortPin(GPIO_ConfigType *_gpio , uint8 Copy_u8Val)
 
 uint8 GPIO_u8ReadPortPin(GPIO_ConfigType *_gpio)
 {
-	if(_gpio->GPIO_PinNumber > 15)
-	{
-		return 0;
-	}
-
+	if(_gpio->GPIO_PinNumber > 15) return 0;
 	return GET_BIT(_gpio->GPIOx->IDR , _gpio->GPIO_PinNumber);
 }
