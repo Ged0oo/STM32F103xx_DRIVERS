@@ -25,11 +25,7 @@ void GPIO_voidInitPortPin(GPIO_ConfigType *_gpio)
 
 static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy_u8Mode)
 {
-	if(Copy_u8Pin > 15)
-	{
-		return;
-	}
-
+	if(Copy_u8Pin > 15) return;
 	if (Copy_u8Pin <= 7)
 	{
 		/* clear bits */
