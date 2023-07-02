@@ -49,19 +49,9 @@ static void GPIO_voidConfgPin_Mode(GPIO_t *GPIOx , uint8 Copy_u8Pin , uint8 Copy
 
 void GPIO_voidWritePortPin(GPIO_ConfigType *_gpio , uint8 Copy_u8Val)
 {
-	if(_gpio->GPIO_PinNumber > 15)
-	{
-		return;
-	}
-
-	if(Copy_u8Val == GPIO_HIGH)
-	{
-		_gpio->GPIOx->BSRR = 1 << (_gpio->GPIO_PinNumber);
-	}
-	else
-	{
-		_gpio->GPIOx->BRR  = 1 << (_gpio->GPIO_PinNumber);
-	}
+	if(_gpio->GPIO_PinNumber > 15) return;
+	if(Copy_u8Val == GPIO_HIGH) _gpio->GPIOx->BSRR = 1 << (_gpio->GPIO_PinNumber);
+	else _gpio->GPIOx->BRR  = 1 << (_gpio->GPIO_PinNumber);
 }
 
 uint8 GPIO_u8ReadPortPin(GPIO_ConfigType *_gpio)
