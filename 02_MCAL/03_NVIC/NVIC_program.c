@@ -89,11 +89,12 @@ void NVIC_vPriorityGroupInit(uint32 Copy_u32PriorityGroup)
 }
 
 
-void NVIC_xSetpriority(IRQnum_t Copy_xIntIndex , uint8 Copy_u8GroupPriority , uint8 Copy_u8SubPriority)
+void NVIC_xSetPriority(IRQnum_t Copy_xIntIndex , uint8 Copy_u8GroupPriority , uint8 Copy_u8SubPriority)
 {
 	if((Copy_xIntIndex >= 0) && (Copy_xIntIndex <= NVIC_N_IRQNS))
 	{
-		
+		uint8 LOC_u8Priority = Copy_u8SubPriority | (Copy_u8GroupPriority << ((Static_u32CurrentPriorityGroup - (SCB_AIRCR_VECTKEY | NVIC_PRIORITY_GROUP_0)) / 256));
+		NVIC->IP[Copy_xIntIndex] = (LOC_u8Priority << 4);
 	}
 }
 
