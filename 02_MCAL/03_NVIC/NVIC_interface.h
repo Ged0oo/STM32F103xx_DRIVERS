@@ -101,13 +101,16 @@ typedef enum
  */
  
 	
-void NVIC_vPriorityGroupInit(uint32 Copy_u32PriorityGroup);
 void NVIC_xEnableInterrupt(IRQnum_t Copy_xIntIndex);
 void NVIC_xDisableInterrupt(IRQnum_t Copy_xIntIndex);
+
 void NVIC_xSetPendingFlag(IRQnum_t Copy_xIntIndex);
 void NVIC_xClearPendingFlag(IRQnum_t Copy_xIntIndex);
+
 void NVIC_xReadIntState(IRQnum_t Copy_xIntIndex, uint8 *pu8IntState);
 IRQnum_t NVIC_xCheck_CurrentInt(void);
-void NVIC_xSetpriority(IRQnum_t Copy_xIntIndex , uint8 Copy_u8GroupPriority , uint8 Copy_u8SubPriority);
+
+void NVIC_xSetPriority(IRQnum_t Copy_xIntIndex , uint8 Copy_u8GroupPriority , uint8 Copy_u8SubPriority);
+void NVIC_vPriorityGroupInit(uint32 Copy_u32PriorityGroup);
 	
 #endif  
