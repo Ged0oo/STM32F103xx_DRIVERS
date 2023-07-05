@@ -13,8 +13,9 @@
 #include "NVIC_private.h"
 #include "NVIC_config.h"
 
+
 /*!< static global variable indicats the current Priority Group !>*/
-static uint32 Static_u32CurrentPriorityGroup; 
+static uint32 Static_u32CurrentPriorityGroup;
 
 
 void NVIC_xEnableInterrupt(IRQnum_t Copy_xIntIndex)
@@ -64,7 +65,7 @@ void NVIC_xReadIntState(IRQnum_t Copy_xIntIndex, uint8 *pu8IntState)
 
 IRQnum_t NVIC_xCheck_CurrentInt(void)
 {
-	/* Check for all maskable interrupts */	
+	/* Check for all maskable interrupts */
 	IRQnum_t LOC_u8Index = 0;
 	uint8 LOC_u8State = 0;
 	
@@ -72,33 +73,27 @@ IRQnum_t NVIC_xCheck_CurrentInt(void)
 	for(LOC_u8Index = 0 ; LOC_u8Index <= NVIC_N_IRQNS ; LOC_u8Index++)
 	{
 		LOC_u8State = GET_BIT(NVIC->IABR[LOC_u8Index/32], LOC_u8Index%32);
-		
+
 		/*If there is an active flag break the loop*/
 		if(LOC_u8State == 1)break;
-		else /*No Action*/
 	}
 	return LOC_u8Index;
 }
 
 
-void NVIC_vPriorityGroupInit(uint32 Copy_u32PriorityGroup)
+void NVIC_xSetPriority(IRQnum_t Copy_xIntIndex , uint32 Copy_u8Priority)
 {
-	/* Assign the desired group to the global priority group value*/
-	Static_u32CurrentPriorityGroup = SCB_AIRCR_VECTKEY | Copy_u32PriorityGroup;
-	SCB->AIRCR = Static_u32CurrentPriorityGroup;
-}
-
-
-void NVIC_xSetPriority(IRQnum_t Copy_xIntIndex , uint8 Copy_u8GroupPriority , uint8 Copy_u8SubPriority)
-{
-	if((Copy_xIntIndex >= 0) && (Copy_xIntIndex <= NVIC_N_IRQNS))
+	if(Copy_xIntIndex >= 0)
 	{
-		uint8 LOC_u8Priority = Copy_u8SubPriority | (Copy_u8GroupPriority << ((Static_u32CurrentPriorityGroup - (SCB_AIRCR_VECTKEY | NVIC_PRIORITY_GROUP_0)) / 256));
-		NVIC->IP[Copy_xIntIndex] = (LOC_u8Priority << 4);
+		NVIC->IP[(uint32)Copy_xIntIndex] = (uint8)((Copy_u8Priority << (8-NVIC_PRIORITY_BITS)) & (uint32)0xFF);
 	}
 }
 
 
-
-
-
+uint32 NVIC_xGetPriority(IRQnum_t Copy_xIntIndex)
+{
+	if(Copy_xIntIndex >= 0)
+	{
+			return (NVIC->IP[(uint32)Copy_xIntIndex] >> (8-NVIC_PRIORITY_BITS));
+	}
+}
