@@ -10,6 +10,9 @@
 #ifndef __NVIC_INTERFACE_H__
 #define __NVIC_INTERFACE_H__
 	
+#include "NVIC_private.h"
+#include "NVIC_config.h"
+
 
 /*NVIC interrupt indexes*/
 typedef enum
@@ -69,37 +72,6 @@ typedef enum
 	USBWakeUp_IRQnum              = 42      /*!< USB Device WakeUp from suspend EXTI Line Interrupt   */
 }IRQnum_t;
 
-
-/*Group priority options*/
-#define NVIC_PRIORITY_GROUP_0              ((uint32)0x300)
-#define NVIC_PRIORITY_GROUP_1			   ((uint32)0x400)
-#define NVIC_PRIORITY_GROUP_2			   ((uint32)0x500)
-#define NVIC_PRIORITY_GROUP_3			   ((uint32)0x600)
-#define NVIC_PRIORITY_GROUP_4              ((uint32)0x700)
-
-/*!<
- The table below gives the allowed values of the pre-emption priority and subpriority according
- to the Priority Grouping configuration performed by NVIC_PriorityGroupConfig function
-  ========================================================================================================
-    NVIC_PriorityGroup   | NVIC_IRQChannelPreemptionPriority | NVIC_IRQChannelSubPriority  | Description
-  ========================================================================================================
-   NVIC_PRIORITY_GROUP_0  |    0-15   |    0      |   0 bits for pre-emption priority
-                          |           |           |   4 bits for subpriority
-  --------------------------------------------------------------------------------------------------------
-   NVIC_PRIORITY_GROUP_1  |    0-7    |    0-1    |   1 bits for pre-emption priority
-                          |           |           |   3 bits for subpriority
-  --------------------------------------------------------------------------------------------------------
-   NVIC_PRIORITY_GROUP_2  |    0-3    |    0-3    |   2 bits for pre-emption priority
-                          |           |           |   2 bits for subpriority
-  --------------------------------------------------------------------------------------------------------
-   NVIC_PRIORITY_GROUP_3  |    0-1    |    0-7    |   3 bits for pre-emption priority
-                          |           |           |   1 bits for subpriority
-  --------------------------------------------------------------------------------------------------------
-   NVIC_PRIORITY_GROUP_4  |    0      |    0-15   |   4 bits for pre-emption priority
-                          |           |           |   0 bits for subpriority
-  ========================================================================================================
- */
- 
 	
 void NVIC_xEnableInterrupt(IRQnum_t Copy_xIntIndex);
 void NVIC_xDisableInterrupt(IRQnum_t Copy_xIntIndex);
@@ -110,7 +82,11 @@ void NVIC_xClearPendingFlag(IRQnum_t Copy_xIntIndex);
 void NVIC_xReadIntState(IRQnum_t Copy_xIntIndex, uint8 *pu8IntState);
 IRQnum_t NVIC_xCheck_CurrentInt(void);
 
-void NVIC_xSetPriority(IRQnum_t Copy_xIntIndex , uint8 Copy_u8GroupPriority , uint8 Copy_u8SubPriority);
-void NVIC_vPriorityGroupInit(uint32 Copy_u32PriorityGroup);
+void SCB_vSetPriorityGroup(uint32 Copy_u32PriorityGroup);
+uint32 SCB_vGetPriorityGroup(void);
 	
-#endif  
+void NVIC_xSetPriority(IRQnum_t Copy_xIntIndex , uint32 Copy_u8Priority);
+uint32 NVIC_xGetPriority(IRQnum_t Copy_xIntIndex);
+
+
+#endif
