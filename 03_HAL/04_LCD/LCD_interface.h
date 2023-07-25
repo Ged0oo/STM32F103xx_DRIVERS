@@ -47,6 +47,7 @@
 typedef struct
 {
 	GPIO_ConfigType lcd_rs;
+	GPIO_ConfigType lcd_rw;
 	GPIO_ConfigType lcd_en;
     GPIO_ConfigType lcd_data[4];
 }chr_lcd_4bit_t;
@@ -55,7 +56,7 @@ typedef struct
 void lcd_4bit_intialize(chr_lcd_4bit_t *lcd);
 
 void lcd_4bit_send_command(chr_lcd_4bit_t *lcd, uint8 command);
-void lcd_4bit_send_custom_char(chr_lcd_4bit_t *lcd, uint8 row, uint8 column, uint8 _chr[], uint8 mem_pos);
+void lcd_4bit_send_custom_char(chr_lcd_4bit_t *lcd, const uint8 _chr[], uint8 row, uint8 column, uint8 mem_pos);
 
 void lcd_4bit_send_char_data(chr_lcd_4bit_t *lcd, uint8 data);
 void lcd_4bit_send_char_data_pos(chr_lcd_4bit_t *lcd,uint8 row, uint8 column, uint8 data);
@@ -63,9 +64,7 @@ void lcd_4bit_send_char_data_pos(chr_lcd_4bit_t *lcd,uint8 row, uint8 column, ui
 void lcd_4bit_send_string(chr_lcd_4bit_t *lcd, uint8 *str);
 void lcd_4bit_send_string_pos(chr_lcd_4bit_t *lcd, uint8 row, uint8 column, uint8 *str);
 
-void LCD_Clear(void);
+void LCD_Clear(chr_lcd_4bit_t *lcd);
 void LCD_WriteNumber_Position(uint32 Number, uint8 row, uint8 column);
-
-
 
 #endif
