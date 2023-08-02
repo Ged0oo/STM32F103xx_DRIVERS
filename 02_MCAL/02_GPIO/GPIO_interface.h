@@ -82,13 +82,13 @@ typedef struct
 
 
 /* GPIO APIs PROTOTYPES */
-void GPIO_voidInitPortPin(GPIO_ConfigType *_gpio);
+void MGPIO_voidInitPortPin(GPIO_ConfigType *_gpio);
 
-void GPIO_voidWritePortPin(GPIO_ConfigType *_gpio , uint8 Copy_u8Val);
-uint8 GPIO_u8ReadPortPin(GPIO_ConfigType *_gpio);
+void MGPIO_voidWritePortPin(GPIO_ConfigType *_gpio , uint8 Copy_u8Val);
+uint8 MGPIO_u8ReadPortPin(GPIO_ConfigType *_gpio);
 
-void GPIO_voidLockPin(GPIO_ConfigType *_gpio , uint8 Copy_u8LockState);
-uint8 GPIO_u8ReadLockPinState(GPIO_ConfigType *_gpio);
+void MGPIO_voidLockPin(GPIO_ConfigType *_gpio , uint8 Copy_u8LockState);
+uint8 MGPIO_u8ReadLockPinState(GPIO_ConfigType *_gpio);
 
 
 #endif
