@@ -23,14 +23,14 @@ void LED_vInit(LED_ConfigType *LED_obj)
 				.GPIO_PinNumber = LED_obj->GPIO_pinX,
 				.GPIO_PinMode = GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_10MHZ
 		};
-		GPIO_voidInitPortPin(&led_obj);
+		MGPIO_voidInitPortPin(&led_obj);
 	}
 }
 
 void LED_vSetState(LED_ConfigType *LED_obj, tLED_State Copy_xState)
 {
 	if(NULL == LED_obj) return;
-	else GPIO_voidWritePortPin(LED_obj, Copy_xState);
+	else MGPIO_voidWritePortPin(LED_obj, Copy_xState);
 }
 
 void LED_vToggle(LED_ConfigType *LED_obj)
