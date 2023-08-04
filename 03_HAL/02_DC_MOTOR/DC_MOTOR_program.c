@@ -21,8 +21,8 @@ void dc_motor_initialize(const dc_motor_t *_dc_motor)
     }
     else
 	{    
-    	GPIO_voidInitPortPin(_dc_motor->Pin_1_GPIO_portX , _dc_motor->Pin_1_GPIO_pinX , GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_10MHZ );
-    	GPIO_voidInitPortPin(_dc_motor->Pin_2_GPIO_portX , _dc_motor->Pin_2_GPIO_pinX , GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_10MHZ );
+    	MGPIO_voidInitPortPin(_dc_motor->Pin_1_GPIO_portX , _dc_motor->Pin_1_GPIO_pinX , GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_10MHZ );
+    	MGPIO_voidInitPortPin(_dc_motor->Pin_2_GPIO_portX , _dc_motor->Pin_2_GPIO_pinX , GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_10MHZ );
     }
 }
 
