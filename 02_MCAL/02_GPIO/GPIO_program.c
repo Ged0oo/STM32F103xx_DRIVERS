@@ -24,8 +24,8 @@ void MGPIO_voidInitPortPin(GPIO_ConfigType *_gpio)
 	{
 		return;
 	}
-	GPIO_voidConfgPin_Mode(_gpio->GPIOx , Copy_u8Pin , Copy_u8Mode);
-	GPIO_voidWritePortPin(_gpio , _gpio->GPIO_Logic);
+	MGPIO_voidConfgPin_Mode(_gpio->GPIOx , Copy_u8Pin , Copy_u8Mode);
+	MGPIO_voidWritePortPin(_gpio , _gpio->GPIO_Logic);
 }
 
 
