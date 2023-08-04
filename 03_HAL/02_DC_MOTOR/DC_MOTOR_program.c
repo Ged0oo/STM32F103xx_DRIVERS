@@ -35,8 +35,8 @@ void dc_motor_move_right(const dc_motor_t *_dc_motor)
     }
     else
 	{
-		GPIO_voidWritePortPin(_dc_motor->Pin_1_GPIO_portX , _dc_motor->Pin_1_GPIO_pinX , GPIO_HIGH);
-		GPIO_voidWritePortPin(_dc_motor->Pin_2_GPIO_portX , _dc_motor->Pin_2_GPIO_pinX , GPIO_LOW );
+		MGPIO_voidWritePortPin(_dc_motor->Pin_1_GPIO_portX , _dc_motor->Pin_1_GPIO_pinX , GPIO_HIGH);
+		MGPIO_voidWritePortPin(_dc_motor->Pin_2_GPIO_portX , _dc_motor->Pin_2_GPIO_pinX , GPIO_LOW );
 	}
 }
 
