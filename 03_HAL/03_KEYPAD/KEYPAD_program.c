@@ -65,13 +65,13 @@ void keypad_initialize(ST_Keypad_t *_keypad_obj)
 		{
 			_keypad_obj->row_pin[rows_counter].GPIO_PinMode = GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_10MHZ;
 			_keypad_obj->row_pin[rows_counter].GPIO_Logic = GPIO_LOW;
-			GPIO_voidInitPortPin(&(_keypad_obj->row_pin[rows_counter]));
+			MGPIO_voidInitPortPin(&(_keypad_obj->row_pin[rows_counter]));
 		}
 		for(columns_counter=0 ; columns_counter<ECU_KEYPAD_COLUMNS ; columns_counter++)
 		{
 			_keypad_obj->column_pin[columns_counter].GPIO_PinMode = GPIO_PIN_INPUT_PULLUP_DOWN_MODE;
 			_keypad_obj->column_pin[columns_counter].GPIO_Logic = GPIO_LOW;
-			GPIO_voidInitPortPin(&(_keypad_obj->column_pin[columns_counter]));
+			MGPIO_voidInitPortPin(&(_keypad_obj->column_pin[columns_counter]));
 		}
 	}
 }
