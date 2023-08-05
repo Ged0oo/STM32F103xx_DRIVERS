@@ -94,10 +94,10 @@ void keypad_get_value(ST_Keypad_t *_keypad_obj, uint8 *value)
 		{
 			for(l_counter=0 ; l_counter<ECU_KEYPAD_ROWS ; l_counter++)
 			{
-				GPIO_voidWritePortPin(&(_keypad_obj->row_pin[l_counter]), GPIO_LOW);
+				MGPIO_voidWritePortPin(&(_keypad_obj->row_pin[l_counter]), GPIO_LOW);
 			}
 
-			GPIO_voidWritePortPin(&(_keypad_obj->row_pin[l_rows_counter]), GPIO_HIGH);
+			MGPIO_voidWritePortPin(&(_keypad_obj->row_pin[l_rows_counter]), GPIO_HIGH);
 			//__delay_ms(10);
 			for(uint32 i=0 ; i<5500 ; i++);
 			for(l_columns_counter=0 ; l_columns_counter<ECU_KEYPAD_COLUMNS ; l_columns_counter++)
