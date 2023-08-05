@@ -102,7 +102,7 @@ void keypad_get_value(ST_Keypad_t *_keypad_obj, uint8 *value)
 			for(uint32 i=0 ; i<5500 ; i++);
 			for(l_columns_counter=0 ; l_columns_counter<ECU_KEYPAD_COLUMNS ; l_columns_counter++)
 			{
-				column_logic = GPIO_u8ReadPortPin(&(_keypad_obj->column_pin[l_rows_counter]));
+				column_logic = MGPIO_u8ReadPortPin(&(_keypad_obj->column_pin[l_rows_counter]));
 				if(GPIO_HIGH == column_logic)
 				{
 					*value = btn_values[l_rows_counter][l_columns_counter];
