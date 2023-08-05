@@ -94,8 +94,8 @@ void lcd_4bit_send_command(chr_lcd_4bit_t *lcd, uint8 command)
 	}
 	else
 	{
-		GPIO_voidWritePortPin(&(lcd->lcd_rs), GPIO_LOW);
-		GPIO_voidWritePortPin(&(lcd->lcd_rw), GPIO_LOW);
+		MGPIO_voidWritePortPin(&(lcd->lcd_rs), GPIO_LOW);
+		MGPIO_voidWritePortPin(&(lcd->lcd_rw), GPIO_LOW);
 		lcd_send_4bits(lcd, command >> 4);
 		lcd_4bit_send_enable_signal(lcd);
 		lcd_send_4bits(lcd, command);
