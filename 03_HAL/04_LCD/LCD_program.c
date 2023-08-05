@@ -1,4 +1,4 @@
-/* 
+22/* 
  * File:   LCD_PROGRAM.c
  * Author: Mohamed_Nagy
  * https://github.com/Ged0oo 
@@ -227,10 +227,10 @@ static void lcd_send_4bits(chr_lcd_4bit_t *lcd, uint8 _data_command)
 
 static void lcd_4bit_send_enable_signal(chr_lcd_4bit_t *lcd)
 {
-	GPIO_voidWritePortPin(&(lcd->lcd_en), GPIO_HIGH);
+	MGPIO_voidWritePortPin(&(lcd->lcd_en), GPIO_HIGH);
 	//__delay_us(5);
 	for(uint8 i=0 ; i<10 ; i++);
-	GPIO_voidWritePortPin(&(lcd->lcd_en), GPIO_LOW);
+	MGPIO_voidWritePortPin(&(lcd->lcd_en), GPIO_LOW);
 	for(uint16 i=0 ; i<2000 ; i++);
 }
 
