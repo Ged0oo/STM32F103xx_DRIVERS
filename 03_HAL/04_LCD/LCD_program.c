@@ -62,15 +62,15 @@ void lcd_4bit_intialize(chr_lcd_4bit_t *lcd)
 		lcd->lcd_rw.GPIO_Logic = GPIO_LOW;
 		lcd->lcd_en.GPIO_Logic = GPIO_LOW;
 
-		GPIO_voidInitPortPin(&(lcd->lcd_rs));
-		GPIO_voidInitPortPin(&(lcd->lcd_rw));
-		GPIO_voidInitPortPin(&(lcd->lcd_en));
+		MGPIO_voidInitPortPin(&(lcd->lcd_rs));
+		MGPIO_voidInitPortPin(&(lcd->lcd_rw));
+		MGPIO_voidInitPortPin(&(lcd->lcd_en));
 
 		for(l_data_pins_counter=0 ; l_data_pins_counter<4 ; l_data_pins_counter++)
 		{
 			lcd->lcd_data[l_data_pins_counter].GPIO_PinMode = GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_2MHZ;
 			lcd->lcd_data[l_data_pins_counter].GPIO_Logic = GPIO_LOW;
-			GPIO_voidInitPortPin(&(lcd->lcd_data[l_data_pins_counter]));
+			MGPIO_voidInitPortPin(&(lcd->lcd_data[l_data_pins_counter]));
 		}
 
 		//__delay_ms(20);
