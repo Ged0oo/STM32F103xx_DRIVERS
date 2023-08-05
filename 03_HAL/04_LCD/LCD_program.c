@@ -218,10 +218,10 @@ void LCD_WriteNumber_Position(uint32 Number, uint8 row, uint8 column)
 
 static void lcd_send_4bits(chr_lcd_4bit_t *lcd, uint8 _data_command)
 {
-	GPIO_voidWritePortPin(&(lcd->lcd_data[0]), (_data_command >> 0) & (uint8)0x01);
-	GPIO_voidWritePortPin(&(lcd->lcd_data[1]), (_data_command >> 1) & (uint8)0x01);
-	GPIO_voidWritePortPin(&(lcd->lcd_data[2]), (_data_command >> 2) & (uint8)0x01);
-	GPIO_voidWritePortPin(&(lcd->lcd_data[3]), (_data_command >> 3) & (uint8)0x01);
+	MGPIO_voidWritePortPin(&(lcd->lcd_data[0]), (_data_command >> 0) & (uint8)0x01);
+	MGPIO_voidWritePortPin(&(lcd->lcd_data[1]), (_data_command >> 1) & (uint8)0x01);
+	MGPIO_voidWritePortPin(&(lcd->lcd_data[2]), (_data_command >> 2) & (uint8)0x01);
+	MGPIO_voidWritePortPin(&(lcd->lcd_data[3]), (_data_command >> 3) & (uint8)0x01);
 }
 
 
