@@ -17,19 +17,21 @@
 #include "GPIO_interface.h"
 #include "KEYPAD_config.h"
 
-#define 		ECU_KEYPAD_ROWS    			4
-#define 		ECU_KEYPAD_COLUMNS 			4
+#define 		NOTPRESSED 				0xff
+
+#define 		KEYPAD_ROWS    			4
+#define 		KEYPAD_COLUMNS 			4
 
 
 typedef struct
 {
-	GPIO_ConfigType row_pin[ECU_KEYPAD_ROWS];
-	GPIO_ConfigType column_pin[ECU_KEYPAD_COLUMNS];
+	GPIO_ConfigType row_pin[KEYPAD_ROWS];
+	GPIO_ConfigType column_pin[KEYPAD_COLUMNS];
 }ST_Keypad_t;
 
 
 void keypad_initialize(ST_Keypad_t *_keypad_obj);
 void keypad_get_value(ST_Keypad_t *_keypad_obj, uint8 *value);
-
+char read_keypad(ST_Keypad_t *_keypad_obj);
 
 #endif
