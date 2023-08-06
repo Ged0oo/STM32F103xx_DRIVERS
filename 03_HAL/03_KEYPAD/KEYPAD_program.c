@@ -9,15 +9,16 @@
 
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
+#include "LCD_interface.h"
 #include "KEYPAD_interface.h"
 
 
 static const uint8 btn_values[4][4] =
 {
-	{'7', '8', '9', '/'},
-	{'4', '5', '6', '*'},
-	{'1', '2', '3', '-'},
-	{'#', '0', '=', '+'}
+	{'1', '2', '3', 'A'},
+	{'4', '5', '6', 'B'},
+	{'7', '8', '9', 'C'},
+	{'*', '0', '#', 'D'}
 };
 
 
@@ -55,60 +56,44 @@ void keypad_initialize(ST_Keypad_t *_keypad_obj)
     uint8 rows_counter = 0;
     uint8 columns_counter = 0;
 
-	if(NULL == _keypad_obj)
-	{
-		return;
-	}
+	if(NULL == _keypad_obj) return;
 	else
 	{
-		for(rows_counter=0 ; rows_counter<ECU_KEYPAD_ROWS ; rows_counter++)
+		for(rows_counter=0 ; rows_counter<KEYPAD_ROWS ; rows_counter++)
 		{
-			_keypad_obj->row_pin[rows_counter].GPIO_PinMode = GPIO_PIN_GENERAL_PURPOSE_OUTPUT_PUSHPULL_MODE_10MHZ;
+			_keypad_obj->row_pin[rows_counter].GPIO_PinMode = GPIO_OUT;
 			_keypad_obj->row_pin[rows_counter].GPIO_Logic = GPIO_LOW;
 			MGPIO_voidInitPortPin(&(_keypad_obj->row_pin[rows_counter]));
 		}
-		for(columns_counter=0 ; columns_counter<ECU_KEYPAD_COLUMNS ; columns_counter++)
+		for(columns_counter=0 ; columns_counter<KEYPAD_COLUMNS ; columns_counter++)
 		{
-			_keypad_obj->column_pin[columns_counter].GPIO_PinMode = GPIO_PIN_INPUT_PULLUP_DOWN_MODE;
-			_keypad_obj->column_pin[columns_counter].GPIO_Logic = GPIO_LOW;
+			_keypad_obj->column_pin[columns_counter].GPIO_PinMode = GPIO_IN;
 			MGPIO_voidInitPortPin(&(_keypad_obj->column_pin[columns_counter]));
 		}
 	}
 }
 
 
-
-void keypad_get_value(ST_Keypad_t *_keypad_obj, uint8 *value)
+char read_keypad (ST_Keypad_t *_keypad_obj)
 {
-	uint8 l_rows_counter = 0;
-	uint8 l_columns_counter = 0;
-	uint8 l_counter = 0;
-	uint8 column_logic = 0;
-	if(NULL == _keypad_obj)
+	uint8 value = NOTPRESSED;
+	for(uint8 rows_counter=0 ; rows_counter<KEYPAD_ROWS ; rows_counter++)
 	{
-		return;
-	}
-	else
-	{
-		for(l_rows_counter=0 ; l_rows_counter<ECU_KEYPAD_ROWS ; l_rows_counter++)
+		for(uint8 counter=0 ; counter<KEYPAD_ROWS ; counter++)
 		{
-			for(l_counter=0 ; l_counter<ECU_KEYPAD_ROWS ; l_counter++)
-			{
-				MGPIO_voidWritePortPin(&(_keypad_obj->row_pin[l_counter]), GPIO_LOW);
-			}
-
-			MGPIO_voidWritePortPin(&(_keypad_obj->row_pin[l_rows_counter]), GPIO_HIGH);
-			//__delay_ms(10);
-			for(uint32 i=0 ; i<5500 ; i++);
-			for(l_columns_counter=0 ; l_columns_counter<ECU_KEYPAD_COLUMNS ; l_columns_counter++)
-			{
-				column_logic = MGPIO_u8ReadPortPin(&(_keypad_obj->column_pin[l_rows_counter]));
-				if(GPIO_HIGH == column_logic)
-				{
-					*value = btn_values[l_rows_counter][l_columns_counter];
-				}
-			}
+			MGPIO_voidWritePortPin(&(_keypad_obj->row_pin[counter]), GPIO_HIGH);
 		}
 
+		MGPIO_voidWritePortPin(&(_keypad_obj->row_pin[rows_counter]), GPIO_LOW);
+
+		for(uint8 columns_counter=0 ; columns_counter<KEYPAD_COLUMNS ; columns_counter++)
+		{
+			if( GPIO_LOW == MGPIO_u8ReadPortPin(&(_keypad_obj->column_pin[columns_counter])))
+			{
+				while (GPIO_LOW == MGPIO_u8ReadPortPin(&(_keypad_obj->column_pin[columns_counter])));
+				value = btn_values[rows_counter][columns_counter];
+			}
+		}
 	}
+	return value;
 }
