@@ -86,6 +86,14 @@ typedef enum
 	Counter_stopped_Update_Event
 }OPM_State;
 
+typedef enum
+{
+	Channel_1,
+	Channel_2,
+	Channel_3,
+	Channel_4
+}PWM_Channel;
+
 typedef struct
 {
 	uint32 PeriodVal;
@@ -98,6 +106,7 @@ typedef struct
 	Clk_Div Clock_Div_Factor;
 	OPM_State OnePulse_Mode;
 	TIM_Update_INT_State UDI_State;
+	PWM_Channel pwmChannel;
 }TIM_ConfigType;
 
 
@@ -120,6 +129,7 @@ void TIM_vSet_Interrupt(TIM_TypeDef *TIMERx,TIM_Update_INT_State Copy_xIntState)
 void TIM_vSetBusyWait(TIM_TypeDef *TIMERx,uint32 Copy_u32Ticks, uint32 Copy_u32TicksTybe);
 void TIM_vSetIntervalSingle  (TIM_TypeDef *TIMERx,uint32 Copy_u32Ticks, uint32 Copy_u32TicksTybe, void (*Copy_vpFuncPtr)(void) );
 void TIM_vSetIntervalPeriodic(TIM_TypeDef *TIMERx,uint32 Copy_u32Ticks ,uint32 Copy_u32TicksTybe , void (* Copy_vpFuncPtr) (void));
-
+void TIM_vSetPwmFrequencyKHZ(TIM_TypeDef *TIMERx,TIM_ConfigType *TIM_ConfigPtr, uint8 FreqKHZ);
+void TIM_vSetPwmDutyCycle(TIM_TypeDef *TIMERx,TIM_ConfigType *TIM_ConfigPtr, uint8 duteCycle);
 
 #endif  __TIMERS_INTERFACE_H__
