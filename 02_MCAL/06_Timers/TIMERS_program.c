@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   TIMERS_PROGRAM.c
  * Author: Mohamed_Nagy
- * https://github.com/Ged0oo 
+ * https://github.com/Ged0oo
  * https://www.linkedin.com/in/mohamednagyofficial/
  * Created on Augest 18, 2023, 8:41 PM
  */
@@ -24,31 +24,31 @@ static volatile uint8 TIM_u8IntervalMode;
 void TIM_vInit(TIM_TypeDef *TIMERx,TIM_ConfigType *TIM_ConfigPtr)
 {
 	/* Set Timer Auto Reloaded Value */
-	TIM_vSetPeriodValue(TIMERx, TIM_ConfigPtr->PeriodVal);
+	//TIM_vSetPeriodValue(TIMERx, TIM_ConfigPtr->PeriodVal);
 
 	/* Set Timer Prescaler Value */
-	TIM_vSetPrescalerValue(TIMERx, TIM_ConfigPtr->PrescalerVal);
+	//TIM_vSetPrescalerValue(TIMERx, TIM_ConfigPtr->PrescalerVal);
 
 	/* Set Timer Auto Reload Buffer Value */
-	TIM_vSetARR_Buffer(TIMERx, TIM_ConfigPtr->AutoReloadBuffer);
+	//TIM_vSetARR_Buffer(TIMERx, TIM_ConfigPtr->AutoReloadBuffer);
 
 	/* Set Timer Center-aligned mode selection Value */
-	TIM_vSetCMS_State(TIMERx, TIM_ConfigPtr->Center_Aligned_Mode);
+	//TIM_vSetCMS_State(TIMERx, TIM_ConfigPtr->Center_Aligned_Mode);
 
 	/* Set Timer Direction Value */
-	TIM_vSetDirection(TIMERx, TIM_ConfigPtr->Direction_State);
+	//TIM_vSetDirection(TIMERx, TIM_ConfigPtr->Direction_State);
 
 	/* Set Timer Clock Devision Value */
-	TIM_vSetClkDiv(TIMERx, TIM_ConfigPtr->Clock_Div_Factor);
+	//TIM_vSetClkDiv(TIMERx, TIM_ConfigPtr->Clock_Div_Factor);
 
 	/* Set Timer One-pulse mode Value */
-	TIM_vSetOPM_State(TIMERx, TIM_ConfigPtr->OnePulse_Mode);
+	//TIM_vSetOPM_State(TIMERx, TIM_ConfigPtr->OnePulse_Mode);
 
 	/* Set Timer Interrupt Value */
-	TIM_vSet_Interrupt(TIMERx, TIM_ConfigPtr->UDI_State);
+	//TIM_vSet_Interrupt(TIMERx, TIM_ConfigPtr->UDI_State);
 
 	/* Set Timer Counter State Value */
-	TIM_vSetCounterState(TIMERx, TIM_ConfigPtr->Counter_State);
+	//TIM_vSetCounterState(TIMERx, TIM_ConfigPtr->Counter_State);
 }
 
 
@@ -292,6 +292,37 @@ void TIM_vSetIntervalPeriodic(TIM_TypeDef *TIMERx,uint32 Copy_u32Ticks ,uint32 C
 	SET_BIT(TIMERx->CR1,0);
 }
 
+
+void TIM_vSetPwmFrequencyKHZ(TIM_TypeDef *TIMERx,TIM_ConfigType *TIM_ConfigPtr, uint8 FreqKHZ)
+{
+	/* Freq = (CPU_FREQ/PRESCALER)/(ARR+1) */
+	TIMERx->ARR = 1000/FreqKHZ - 1;
+}
+
+
+void TIM_vSetPwmDutyCycle(TIM_TypeDef *TIMERx,TIM_ConfigType *TIM_ConfigPtr, uint8 duteCycle)
+{
+
+	switch(TIM_ConfigPtr->pwmChannel)
+	{
+		case Channel_1:
+			TIMERx->CCR1 = (duteCycle*(TIMERx->ARR))/100;
+			break;
+
+		case Channel_2:
+			TIMERx->CCR2 = (duteCycle*(TIMERx->ARR))/100;
+			break;
+
+		case Channel_3:
+			TIMERx->CCR3 = (duteCycle*(TIMERx->ARR))/100;
+			break;
+
+		case Channel_4:
+			TIMERx->CCR4 = (duteCycle*(TIMERx->ARR))/100;
+			break;
+	}
+
+}
 
 
 void TIM1_UP_IRQHandler (void)
