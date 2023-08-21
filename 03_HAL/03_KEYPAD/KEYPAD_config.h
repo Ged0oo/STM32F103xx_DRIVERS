@@ -24,5 +24,4 @@
 #define			COLUMN_PIN_3		GPIO_PIN_6
 
 
-
 #endif
