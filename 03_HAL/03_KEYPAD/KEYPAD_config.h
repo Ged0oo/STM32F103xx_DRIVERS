@@ -7,7 +7,6 @@
  */
 
 
-
 #ifndef __TEMPLATE_CONFIG_H__
 #define __TEMPLATE_CONFIG_H__
 
