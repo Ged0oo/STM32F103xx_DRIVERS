@@ -10,7 +10,6 @@
 #ifndef __TEMPLATE_CONFIG_H__
 #define __TEMPLATE_CONFIG_H__
 
-
 #define			ROW_PORT			GPIOA
 #define			ROW_PIN_0			GPIO_PIN_10
 #define			ROW_PIN_1			GPIO_PIN_11
