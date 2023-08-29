@@ -36,6 +36,7 @@ void LED_vSetState(LED_ConfigType *LED_obj, tLED_State Copy_xState)
 	else MGPIO_voidWritePortPin(LED_obj, Copy_xState);
 }
 
+
 void LED_vToggle(LED_ConfigType *LED_obj)
 {
 	if(NULL == LED_obj) return;
