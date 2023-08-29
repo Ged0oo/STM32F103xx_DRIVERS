@@ -11,6 +11,7 @@
 #include "LED_interface.h"
 #include "LED_config.h"
 
+
 void LED_vInit(LED_ConfigType *LED_obj)
 {
 	if(NULL == LED_obj) return;
