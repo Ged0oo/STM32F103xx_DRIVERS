@@ -39,7 +39,6 @@ void NVIC_xSetPendingFlag(IRQnum_t Copy_xIntIndex)
 	}
 }
 
-
 void NVIC_xClearPendingFlag(IRQnum_t Copy_xIntIndex)
 {
 	if(Copy_xIntIndex >= 0)
