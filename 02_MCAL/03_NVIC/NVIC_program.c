@@ -74,7 +74,6 @@ IRQnum_t NVIC_xCheck_CurrentInt(void)
 	return LOC_u8Index;
 }
 
-
 void NVIC_xSetPriority(IRQnum_t Copy_xIntIndex , uint32 Copy_u8Priority)
 {
 	if(Copy_xIntIndex >= 0)
