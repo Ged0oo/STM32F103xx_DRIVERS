@@ -56,7 +56,6 @@ void NVIC_xReadIntState(IRQnum_t Copy_xIntIndex, uint8 *pu8IntState)
 	}
 }
 
-
 IRQnum_t NVIC_xCheck_CurrentInt(void)
 {
 	/* Check for all maskable interrupts */
