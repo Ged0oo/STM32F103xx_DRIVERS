@@ -23,7 +23,6 @@ void NVIC_xEnableInterrupt(IRQnum_t Copy_xIntIndex)
 	}
 }
 
-
 void NVIC_xDisableInterrupt(IRQnum_t Copy_xIntIndex)
 {
 	if(Copy_xIntIndex >= 0)
