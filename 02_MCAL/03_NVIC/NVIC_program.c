@@ -12,7 +12,6 @@
 #include "NVIC_private.h"
 #include "NVIC_config.h"
 
-
 /*!< static global variable indicats the current Priority Group !>*/
 static uint32 Static_u32CurrentPriorityGroup;
 
