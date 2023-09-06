@@ -17,7 +17,6 @@
 /*!< static global variable indicats the current Priority Group !>*/
 static uint32 Static_u32CurrentPriorityGroup;
 
-
 void NVIC_xEnableInterrupt(IRQnum_t Copy_xIntIndex)
 {
 	if(Copy_xIntIndex >= 0)
