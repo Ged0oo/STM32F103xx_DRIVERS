@@ -83,7 +83,6 @@ void NVIC_xSetPriority(IRQnum_t Copy_xIntIndex , uint32 Copy_u8Priority)
 	}
 }
 
-
 uint32 NVIC_xGetPriority(IRQnum_t Copy_xIntIndex)
 {
 	if(Copy_xIntIndex >= 0)
