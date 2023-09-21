@@ -17,7 +17,6 @@ static volatile uint8 STK_u8IntervalMode;
 #define STK_SET_INTERVAL_MODE(MODE)                          STK_u8IntervalMode = MODE
 #define STK_GET_INTERVAL_MODE()                             (STK_u8IntervalMode & 1)
 
-
 static void (*SysTick_CallBack) (void);
 
 
