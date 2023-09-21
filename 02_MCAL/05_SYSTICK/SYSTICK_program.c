@@ -19,7 +19,6 @@ static volatile uint8 STK_u8IntervalMode;
 
 static void (*SysTick_CallBack) (void);
 
-
 void STK_vInit(uint8 Copy_xClockSource)
 {
 	/* Select Systick Clock Source */
