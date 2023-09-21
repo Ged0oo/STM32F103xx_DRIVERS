@@ -12,7 +12,6 @@
 #include "SYSTICK_private.h"
 #include "SYSTICK_config.h"
 
-
 static volatile uint8 STK_u8IntervalMode;
 
 
