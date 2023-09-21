@@ -6,7 +6,6 @@
  * Created on August 8, 2023, 8:41 PM
  */
 
-
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
 #include "SYSTICK_interface.h"
