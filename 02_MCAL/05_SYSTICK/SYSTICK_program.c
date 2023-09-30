@@ -13,6 +13,7 @@
 #include "SYSTICK_private.h"
 #include "SYSTICK_config.h"
 
+
 static volatile uint8 STK_u8IntervalMode;
 
 #define STK_SET_INTERVAL_MODE(MODE)                          STK_u8IntervalMode = MODE
